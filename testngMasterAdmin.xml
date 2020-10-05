@@ -9,7 +9,6 @@
         <parameter name="browserType" value="chrome"/>
         <classes>
            <class name="Admin.VerifyLoginWithValidDetails"/>
-
         </classes>
     </test>
 </suite>
