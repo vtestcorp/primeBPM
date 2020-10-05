@@ -251,6 +251,7 @@ public class baseClass {
             chromePrefs.put("download.default_directory", DownloadFilepath);
             options.setExperimentalOption("prefs", chromePrefs);
             driver = new ChromeDriver(options);
+            driver.manage().window().maximize();
         } else if (browser.equalsIgnoreCase("firefox")) {
             defineProperties defineBrowser = new defineProperties(browser);
             driver = new FirefoxDriver();
@@ -327,13 +328,6 @@ public class baseClass {
     public void zip(int Status, int failedCount, int skipcount) {
         try {
             zipUtil createZip = new zipUtil("report", ".//report//DetailedReport.zip");
-            SendMailForFailedScenarios.SendMail(count, Status, failedCount, skipcount, hypen, space, atest);
-            slackMessage slackMsg = slackMessage.builder().username("user")
-                    .text("Hi,\nExecution status for test cases-\n\n" + hypen + hypen + hypen + "\n"
-                            + hypen + hypen + hypen + "\n" + "Total test cases = " + count
-                            + "\n\n" + "Pass Test cases = " + Status + "\n\n" + "Failed Test cases = " + failedCount + "\n\n" + "Skip Test cases = " + skipcount + "\n\n" + hypen + hypen + hypen + "\n\n Please check Email for complete report and sample test data, Thanks")
-                    .icon_emoji(":zap:").build();
-            slackUtils.sendMessage(slackMsg, System.getProperty("user.dir") + "\\report\\extent.html");
 
         } catch (Exception e) {
             e.printStackTrace();
