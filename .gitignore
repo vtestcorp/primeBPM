@@ -1,0 +1,14 @@
+# Admin specific & automatically generated files #
+#################################################
+/target/*
+Abara.iml
+
+# IDE and editor specific files #
+#################################
+.idea
+
+/report/
+/target/
+/.classpath
+/.project
+/test-output/
