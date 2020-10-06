@@ -47,7 +47,7 @@ public class AdminPage {
     @FindBy(xpath = "//div[@title='Create new organisation/role']")
     private WebElement newRoleButton;
 
-    @FindBy(xpath = "//md-icon[@md-svg-src='dist/img/icons/ic_search.svg']")
+    @FindBy(xpath = "//label[@class='expandSearch algnlt']//input")
     private WebElement searchRole;
 
     @FindBy(xpath = "//tr[starts-with(@data-ng-repeat,'store in currentPageStores')]")
@@ -136,11 +136,11 @@ public class AdminPage {
 
     public void clickOnSearchRoleButton(){
         Actions actions = new Actions(driver);
-        actions.moveToElement(searchRole).perform();
+        actions.click(searchRole).perform();
         test.log(Status.INFO,"Click 'Search' icon on Role reposotory page");
     }
 
-    public void verifynewRoleCreatedSuccessfully(){
+    public void verifyNewRoleCreatedSuccessfully(){
         clickOnAdministrationTab();
         clickOnSettingTab();
         clickOnRoleRepository();
@@ -150,10 +150,11 @@ public class AdminPage {
         clickOnSubmitBtn();
         applyWait.waitForElementToBeClickable(roleCreatedSuccessMsg, 90).isDisplayed();
         Assert.assertEquals(defineConstants.newRoleCreatedSuccessMsg,roleCreatedSuccessMsg.getText());
-        clickOnSubmitBtn();
+        clickOnSearchRoleButton();
         applyWait.waitForElementToBeClickable(searchRole,30).sendKeys(roleName);
         test.log(Status.INFO,"Search the name of recently added ROLE");
         Assert.assertTrue(searchedRoleRecords.isDisplayed());
+        test.log(Status.INFO,"Verify recently added ROLE display");
     }
 }
 

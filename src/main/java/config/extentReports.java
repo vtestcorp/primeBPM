@@ -40,7 +40,7 @@ public class extentReports {
         htmlReporter.config().setTheme(Theme.STANDARD);
 
         // Report title
-        htmlReporter.config().setDocumentTitle("Automation Report - NexLP");
+        htmlReporter.config().setDocumentTitle("Automation Report - PrimeBpmApp");
 
         // Append Tests to Existing Report
         htmlReporter.setAppendExisting(true);
@@ -52,7 +52,7 @@ public class extentReports {
         htmlReporter.config().setEncoding("utf-8");
 
         // Report or build name
-        htmlReporter.config().setReportName("NexLP Report");
+        htmlReporter.config().setReportName("PrimeBpmApp Report");
 
         // Set timeStamp format
 //        htmlReporter.config().setTimeStampFormat("mm/dd/yyyy hh:mm:ss a");
