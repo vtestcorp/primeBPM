@@ -25,7 +25,7 @@ public class VerifyLoginWithValidDetails extends baseClass {
     }
 
     @Test
-    public void VerifyAddNewRoleInAdministration() throws Exception{
+    public void VerifyAddNewRoleInAdministration() throws Exception {
         test = extent.createTest("Add Roles (Through Repository)",
                 "User should be able to ADD Roles through Admin (Settings) page");
         AdminPage admin = new AdminPage(driver, test);

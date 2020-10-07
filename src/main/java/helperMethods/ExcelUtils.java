@@ -3,6 +3,10 @@ package helperMethods;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import config.defineConstants;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
@@ -55,13 +59,13 @@ public class ExcelUtils {
         FileInputStream fis = new FileInputStream(src);
 
         // load the workbook
-        XSSFRow row = null;
-        XSSFCell cell;
+        HSSFRow row = null;
+        HSSFCell cell;
 
         @SuppressWarnings("resource")
-        XSSFWorkbook wb = new XSSFWorkbook(fis);
+        HSSFWorkbook wb = new HSSFWorkbook (fis);
 
-        XSSFSheet sh1 = wb.getSheet(sheetName);
+        HSSFSheet sh1 = wb.getSheet(sheetName);
         // int num = 1;
         row = sh1.getRow(num);
         cell = row.createCell(col);
