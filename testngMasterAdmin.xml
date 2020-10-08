@@ -5,10 +5,16 @@
     <listeners>
         <listener class-name="listeners.AnnotationTransformer"/>
     </listeners>
-    <test name="check systemAdmin">
+    <!--<test name="check systemAdmin">
         <parameter name="browserType" value="chrome"/>
         <classes>
-           <class name="Admin.VerifyLoginWithValidDetails"/>
+           <class name="Admin.VerifyAddNewRoleInAdministration"/>
+        </classes>
+    </test>-->
+    <test name="Designer-Create Framework/Library">
+        <parameter name="browserType" value="chrome"/>
+        <classes>
+            <class name="Designer.verifyNewFrameworkCreatedOnDesignerPage"></class>
         </classes>
     </test>
 </suite>
