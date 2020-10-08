@@ -33,6 +33,8 @@ public class defineConstants {
     public static final int detail_Col = 3;
     //Admin create New Role Data
     public static final String newRoleCreatedSuccessMsg = "Role added successfully";
+    public static final String newRoleUploadedSuccessMsg = "Role repository excel uploaded successfully.";
+
 
     public static final String loginErrormsg = "Sign in failed";
 }

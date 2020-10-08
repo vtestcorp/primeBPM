@@ -234,14 +234,12 @@ public class AdminPage {
         clickOnUploadBtn(p);
         clickOnFileSubmitBtn();
         applyWait.waitForElementToBeClickable(roleCreatedSuccessMsg, 90).isDisplayed();
-        Assert.assertEquals(defineConstants.newRoleCreatedSuccessMsg, roleCreatedSuccessMsg.getText());
+        Assert.assertEquals(defineConstants.newRoleUploadedSuccessMsg, roleCreatedSuccessMsg.getText());
         clickOnSearchRoleButton();
         applyWait.waitForElementToBeClickable(searchRole, 30).sendKeys(roleName);
         test.log(Status.INFO, "Search the name of recently added ROLE");
         Assert.assertTrue(searchedRoleRecords.isDisplayed());
         test.log(Status.INFO, "Verify recently added ROLE display");
     }
-
-
 }
 
