@@ -13,10 +13,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
+import java.io.File;
 import java.util.List;
 
 public class AdminPage {
@@ -49,7 +50,7 @@ public class AdminPage {
     @FindBy(xpath = "//div[@title='Create new organisation/role']")
     private WebElement newRoleButton;
 
-    @FindBy(xpath = "//md-icon[@md-svg-src='dist/img/icons/ic_search.svg']")
+    @FindBy(xpath = "//label[@class='expandSearch algnlt']//input")
     private WebElement searchRole;
 
     @FindBy(xpath = "//tr[starts-with(@data-ng-repeat,'store in currentPageStores')]")
@@ -90,6 +91,15 @@ public class AdminPage {
 
     @FindBy(xpath = "//span[@title='Download excel template to upload']")
     private WebElement excelTemplate;
+
+    @FindBy(xpath = "//span[contains(text(),'Import')]")
+    private WebElement importBtn;
+
+    @FindBy(xpath = "//input[@id='excelFile']")
+    private WebElement uploadBtn;
+
+    @FindBy(xpath = "//span[contains(text(),'Submit')]")
+    private WebElement fileSubmitBtn;
     //End of Add New Role Popup Elements//
 
     //Start of Administration Page Methods//
@@ -136,14 +146,14 @@ public class AdminPage {
         return roleName;
     }
 
-    public void clickOnSubmitBtn() {
-        applyWait.waitForElementToBeClickable(submitBtn, 50).click();
+    public void clickOnFileSubmitBtn() {
+        applyWait.waitForElementToBeClickable(fileSubmitBtn, 50).click();
         test.log(Status.INFO, "User click on Submit button");
     }
 
     public void clickOnSearchRoleButton() {
         Actions actions = new Actions(driver);
-        actions.moveToElement(searchRole).perform();
+        actions.click(searchRole).perform();
         test.log(Status.INFO, "Click 'Search' icon on Role reposotory page");
     }
 
@@ -157,6 +167,21 @@ public class AdminPage {
         test.log(Status.INFO, "User click on excel template button");
     }
 
+    public void clickOnImportBtn() {
+        applyWait.waitforElementToBeDisplayed(importBtn, 30).click();
+        test.log(Status.INFO, "User click on import button");
+    }
+
+    public void clickOnUploadBtn(String path) {
+        applyWait.waitforElementToBeDisplayed(uploadBtn, 30).sendKeys(path);
+        test.log(Status.INFO, "User click on upload button");
+    }
+
+    public void clickOnSubmitBtn() {
+        applyWait.waitforElementToBeDisplayed(submitBtn, 30).click();
+        test.log(Status.INFO, "User click on submit button");
+    }
+
     public void verifynewRoleCreatedSuccessfully() {
         clickOnAdministrationTab();
         clickOnSettingTab();
@@ -167,14 +192,17 @@ public class AdminPage {
         clickOnSubmitBtn();
         applyWait.waitForElementToBeClickable(roleCreatedSuccessMsg, 90).isDisplayed();
         Assert.assertEquals(defineConstants.newRoleCreatedSuccessMsg, roleCreatedSuccessMsg.getText());
-        clickOnSubmitBtn();
+        clickOnSearchRoleButton();
         applyWait.waitForElementToBeClickable(searchRole, 30).sendKeys(roleName);
         test.log(Status.INFO, "Search the name of recently added ROLE");
         Assert.assertTrue(searchedRoleRecords.isDisplayed());
+        test.log(Status.INFO, "Verify recently added ROLE display");
     }
 
 
     public void verifyNewRoleGetImportedSuccessfully() throws Exception {
+        String path, location, exportFilName = "", expectedFilName, actualFileName = "";
+        int flag = 0;
         ExcelUtils read = new ExcelUtils();
         driver.get("https://www.primebpmapp.com/ioadmin/#/view_account_admin/");
         Thread.sleep(5000);
@@ -183,16 +211,35 @@ public class AdminPage {
         clickOnMoreBtn();
         clickOnExcelTemplate();
         Thread.sleep(3000);
-        String orgName = produce.generateName();
-        read.Write(constants.orgName_Row, constants.orgName_Col, orgName, constants.role_Repository, "Sheet1");
-        String role = produce.generateName();
-        read.Write(constants.roleName_Row, constants.roleName_Col, role, constants.role_Repository, "Sheet1");
-        int sal = produce.getRandomNumber();
-        String salary = Integer.toString(sal);
-        read.Write(constants.salary_Row, constants.salary_Col, salary, constants.role_Repository, "Sheet1");
-        String details = produce.generateName();
-        read.Write(constants.detail_Row, constants.detail_Col, details, constants.role_Repository, "Sheet1");
-
+        path = System.getProperty("user.dir");
+        location = path + "\\Test_Data\\Download";
+        expectedFilName = "role_repository_template";
+        File dir = new File(location);
+        int oldlen = dir.listFiles().length;
+        Thread.sleep(3000);
+        File[] dirContents = dir.listFiles();
+        Thread.sleep(3000);
+        for (int i = 0; i < dirContents.length; i++) {
+            actualFileName = dirContents[i].getName();
+            if (actualFileName.contains(expectedFilName)) {
+                flag = 1;
+                break;
+            }
+        }
+        Assert.assertEquals(flag, 1);
+        Thread.sleep(3000);
+        clickOnImportBtn();
+        File Path = new File(constants.role_Repository);
+        String p = Path.getAbsolutePath();
+        clickOnUploadBtn(p);
+        clickOnFileSubmitBtn();
+        applyWait.waitForElementToBeClickable(roleCreatedSuccessMsg, 90).isDisplayed();
+        Assert.assertEquals(defineConstants.newRoleCreatedSuccessMsg, roleCreatedSuccessMsg.getText());
+        clickOnSearchRoleButton();
+        applyWait.waitForElementToBeClickable(searchRole, 30).sendKeys(roleName);
+        test.log(Status.INFO, "Search the name of recently added ROLE");
+        Assert.assertTrue(searchedRoleRecords.isDisplayed());
+        test.log(Status.INFO, "Verify recently added ROLE display");
     }
 
 

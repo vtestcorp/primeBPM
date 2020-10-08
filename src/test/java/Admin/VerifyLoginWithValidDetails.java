@@ -33,7 +33,8 @@ public class VerifyLoginWithValidDetails extends baseClass {
         defineConstants defineConstant = new defineConstants();
         driver.get(read.getCellData(defineConstant.AdminURL_Row, defineConstant.AdminURL_Col, "Admin"));
 
-        admin.verifynewRoleCreatedSuccessfully();
+        admin.verifyNewRoleGetImportedSuccessfully();
+       // admin.verifynewRoleCreatedSuccessfully();
         Thread.sleep(3000);
     }
 }
