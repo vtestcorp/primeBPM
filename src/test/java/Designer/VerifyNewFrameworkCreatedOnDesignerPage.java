@@ -8,7 +8,7 @@ import pageFactory_Designer.DesignerPage;
 import pageFactory_Designer.loginPage;
 
 
-public class verifyNewFrameworkCreatedOnDesignerPage extends baseClass {
+public class VerifyNewFrameworkCreatedOnDesignerPage extends baseClass {
     @Test(alwaysRun = true)
     public void ValidLogin() throws Exception {
 
@@ -18,21 +18,11 @@ public class verifyNewFrameworkCreatedOnDesignerPage extends baseClass {
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();
         defineConstants defineConstant = new defineConstants();
+        DesignerPage designer = new DesignerPage(driver, test);
         driver.get(read.getCellData(defineConstant.AdminURL_Row, defineConstant.AdminURL_Col, "Admin"));
 
         login.loginWithValid_User();
-        Thread.sleep(3000);
-    }
-
-    @Test
-    public void verifyNewFrameworkCreatedOnDesignerPage() throws Exception {
-        test = extent.createTest("Add Roles (Through Repository)",
-                "User should be able to ADD Roles through Admin (Settings) page");
-        DesignerPage designer = new DesignerPage(driver, test);
-        ExcelUtils read = new ExcelUtils();
-        defineConstants defineConstant = new defineConstants();
-
         designer.verifyNewFrameworkCreatedSuccessfully();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
     }
 }

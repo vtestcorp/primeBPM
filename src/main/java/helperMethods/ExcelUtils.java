@@ -3,6 +3,11 @@ package helperMethods;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import config.defineConstants;
+import javafx.scene.control.Cell;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
@@ -55,19 +60,22 @@ public class ExcelUtils {
         FileInputStream fis = new FileInputStream(src);
 
         // load the workbook
-        XSSFRow row = null;
-        XSSFCell cell;
+        HSSFRow row = null;
+        HSSFCell cell, cell1;
 
         @SuppressWarnings("resource")
-        XSSFWorkbook wb = new XSSFWorkbook(fis);
+        HSSFWorkbook wb = new HSSFWorkbook(fis);
 
-        XSSFSheet sh1 = wb.getSheet(sheetName);
+        HSSFSheet sh1 = wb.getSheet(sheetName);
         // int num = 1;
+     /*   for (int i = 1; i < sh1.getLastRowNum() + 1; i++) {
+            row = sh1.getRow(i);
+            String sku = row.getCell(0).getStringCellValue();   //yes, I know it's deprecated.
+            sh1.removeRow(row); //somehow, this has no effect on the iteration over the Rows. Maybe I'm iterating over "physical" rows, and this removes a "logical" row, or something?
+        }*/
         row = sh1.getRow(num);
         cell = row.createCell(col);
         cell.setCellValue(actual);
-       /* cell = row.createCell(3);
-        cell.setCellValue(status);*/
         FileOutputStream fout = new FileOutputStream(path);
         wb.write(fout);
         // fout.close();
@@ -139,12 +147,12 @@ public class ExcelUtils {
             CSVWriter writer = new CSVWriter(outputfile);
 
             // adding header to csv
-            String[] header = {"*Email Address","*First Name","*Last Name","*Branch","Phone Number","Country","State","City","Line Manager","Instructor Rights(0 => No,1 => Yes)"};
+            String[] header = {"*Email Address", "*First Name", "*Last Name", "*Branch", "Phone Number", "Country", "State", "City", "Line Manager", "Instructor Rights(0 => No,1 => Yes)"};
             writer.writeNext(header);
 
             // add data to csv
             String branch = "Default";
-            String[] data1 = {mailID, fName, lName, branch,"","","","","",""};
+            String[] data1 = {mailID, fName, lName, branch, "", "", "", "", "", ""};
             writer.writeNext(data1);
 
             // closing writer connection
@@ -171,12 +179,12 @@ public class ExcelUtils {
             CSVWriter writer = new CSVWriter(outputfile);
 
             // adding header to csv
-            String[] header = {"*Email Address","*First Name","*Last Name","*Branch","Phone Number","Country","State","City","Instructor Rights(0 => No,1 => Yes)"};
+            String[] header = {"*Email Address", "*First Name", "*Last Name", "*Branch", "Phone Number", "Country", "State", "City", "Instructor Rights(0 => No,1 => Yes)"};
             writer.writeNext(header);
 
             // add data to csv
             String branch = "Default";
-            String[] data1 = {mailID, fName, lName, branch,"","","","",""};
+            String[] data1 = {mailID, fName, lName, branch, "", "", "", "", ""};
             writer.writeNext(data1);
             // closing writer connection
             writer.close();

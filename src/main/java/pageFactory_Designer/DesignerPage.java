@@ -109,7 +109,8 @@ public class DesignerPage {
     }
 
     public  void fillDetailsToCreateNewFramework(){
-        applyWait.waitForElementToBeClickable(nameInputField, 50).sendKeys(constants.frameworkName);
+        String frameworkName = produce.generateName();
+        applyWait.waitForElementToBeClickable(nameInputField, 50).sendKeys(frameworkName);
         test.log(Status.INFO, "User provide name for new framework");
     }
 
@@ -136,25 +137,25 @@ public class DesignerPage {
     }
 
     public void createLibrary() throws Exception{
+        String parentProcess = produce.generateName();
+        String childProcess1 = produce.generateName();
         Actions actions = new Actions(driver);
         applyWait.waitForElementToBeClickable(addProcessIcon, 90).click();
         test.log(Status.INFO, "User click on Add Process icon");
         actions.moveByOffset(10,10).perform();
         actions.release(draggableAddProcessElement).perform();
         test.log(Status.INFO, "User drag and drop process element");
-        applyWait.waitForElementToBeClickable(processElement,30).sendKeys(constants.parentProcess);
+        applyWait.waitForElementToBeClickable(processElement,30).sendKeys(parentProcess);
         test.log(Status.INFO, "User type name of Parent process element");
         Thread.sleep(3000);
-
         applyWait.waitForElementToBeClickable(addProcessIcon, 90).click();
         test.log(Status.INFO, "User click on Add Process icon on parent process element");
         actions.moveByOffset(150,170).perform();
         actions.release(draggableAddProcessElement).perform();
         test.log(Status.INFO, "User drag and drop first child process element");
-        applyWait.waitForElementToBeClickable(processElement,50).sendKeys(constants.childProcess1);
+        applyWait.waitForElementToBeClickable(processElement,50).sendKeys(childProcess1);
         test.log(Status.INFO, "User type name of the first child process element");
         Thread.sleep(3000);
-
         applyWait.waitForElementToBeClickable(addChildProcess, 90).click();
         test.log(Status.INFO, "User click on Add Process icon on child process element");
         actions.moveByOffset(190,230).perform();
@@ -162,7 +163,6 @@ public class DesignerPage {
         test.log(Status.INFO, "User drag and drop second child process element");
         applyWait.waitForElementToBeClickable(processElement,30).sendKeys(constants.childProcess2);
         test.log(Status.INFO, "User type name of the second child process element");
-
         actions.click(droppableToScreen).perform();
         clickOnSaveFrameworkBtn();
         test.log(Status.INFO, "Click SAVE option to confirm changes are registered");
