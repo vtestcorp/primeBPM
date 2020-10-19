@@ -10,10 +10,9 @@ import pageFactory_Designer.loginPage;
 
 public class VerifyNewFrameworkCreatedOnDesignerPage extends baseClass {
     @Test(alwaysRun = true)
-    public void ValidLogin() throws Exception {
+    public void createFramwork() throws Exception {
 
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("User should be able to create NEW framework/library in the designer sectiona");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();

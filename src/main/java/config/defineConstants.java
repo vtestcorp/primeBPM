@@ -34,13 +34,15 @@ public class defineConstants {
     //Admin create New Role Data
     public static final String newRoleCreatedSuccessMsg = "Role added successfully";
     public static final String newRoleUploadedSuccessMsg = "Role repository excel uploaded successfully.";
-
+    public static final String newLibrarySuccessMsg = "Process library updated successfully.";
+    public static final String undoCheckoutSuccessMsg = "Undo check out successful.";
 
     //Designer Page Data for New Framework
-    public static final String frameworkName="HS Corporate 12";
+    public static final String frameworkName = "HS Corporate 12";
     public static final String parentProcess = "Test1";
     public static final String childProcess1 = "Test2";
     public static final String childProcess2 = "Test3";
-
+    public static final String importedRole = "roletest113";
+    public static final String searchString = "AUTOMATIONFRAMEWORK";
     public static final String loginErrormsg = "Sign in failed";
 }

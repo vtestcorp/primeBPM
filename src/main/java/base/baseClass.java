@@ -242,10 +242,10 @@ public class baseClass {
             defineProperties defineBrowser = new defineProperties(browser);
             ChromeOptions options = new ChromeOptions();
             options.addArguments("disable-infobars");
-            options.addArguments("--start-maximized");
-            options.addArguments("window-size=1280,1024");
-            String path =System.getProperty("user.dir");
-            DownloadFilepath = path+"\\Test_Data\\Download";
+           // options.addArguments("--start-maximized");
+            options.addArguments("window-size=1024,768");
+            String path = System.getProperty("user.dir");
+            DownloadFilepath = path + "\\Test_Data\\Download";
             HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
             chromePrefs.put("profile.default_content_settings.popups", 0);
             chromePrefs.put("download.default_directory", DownloadFilepath);
@@ -269,6 +269,7 @@ public class baseClass {
     public WebDriver getDriver() {
         return driver;
     }
+
     @AfterMethod(timeOut = 10000L, alwaysRun = true)
     public void checkResult(ITestResult result) throws IOException {
         if (result.getStatus() == ITestResult.FAILURE) {
@@ -284,7 +285,7 @@ public class baseClass {
     }
 
     @AfterClass
-    public void tearDown()  {
+    public void tearDown() {
         driver.quit();
     }
 

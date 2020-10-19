@@ -29,4 +29,32 @@ public class CommonLocators {
     public WebElement getToastMsgs() {
         return toastMsgs;
     }
+
+    @FindBy(xpath = "//li[@class='SearchIcon']")
+    public WebElement searchIcon;
+
+    @FindBy(xpath = "//input[@id='searchString']")
+    public WebElement searchString;
+
+    @FindBy(xpath = "//span[contains(text(),'Framework')]")
+    public WebElement frameworkTab;
+
+    @FindBy(xpath = "//button[@id='searchSubmit']")
+    public WebElement searchBtn;
+
+    public WebElement getSearchIcon() {
+        return searchIcon;
+    }
+
+    public WebElement getSearchString() {
+        return searchString;
+    }
+
+    public WebElement getFrameworkTab() {
+        return frameworkTab;
+    }
+
+    public WebElement getSearchBtn() {
+        return searchBtn;
+    }
 }

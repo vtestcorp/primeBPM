@@ -15,7 +15,8 @@
     <test name="Designer-Create Framework/Library">
         <parameter name="browserType" value="chrome"/>
         <classes>
-            <class name="Designer.VerifyNewFrameworkCreatedOnDesignerPage"></class>
+            <class name="Designer.VerifyNewFrameworkCreatedOnDesignerPage"/>
+            <class name="Designer.VerifyUserIsAbleToUndoCheckout"/>
         </classes>
     </test>
 </suite>

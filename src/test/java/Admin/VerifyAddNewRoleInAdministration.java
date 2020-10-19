@@ -21,6 +21,7 @@ public class VerifyAddNewRoleInAdministration extends baseClass {
         driver.get(read.getCellData(defineConstant.AdminURL_Row, defineConstant.AdminURL_Col, "Admin"));
 
         login.loginWithValid_User();
+
         admin.verifyNewRoleCreatedSuccessfully();
         Thread.sleep(3000);
     }

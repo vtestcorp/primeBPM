@@ -234,12 +234,12 @@ public class AdminPage extends CommonLocators {
         File Path = new File(constants.role_Repository);
         String p = Path.getAbsolutePath();
         clickOnUploadBtn(p);
-        Thread.sleep(3000);
+        Thread.sleep(5000);
         clickOnFileSubmitBtn();
         applyWait.waitForElementToBeClickable(roleCreatedSuccessMsg, 90).isDisplayed();
         Assert.assertEquals(defineConstants.newRoleUploadedSuccessMsg, roleCreatedSuccessMsg.getText());
         clickOnSearchRoleButton();
-        applyWait.waitForElementToBeClickable(searchRole, 30).sendKeys(roleName);
+        applyWait.waitForElementToBeClickable(searchRole, 30).sendKeys(constants.importedRole);
         test.log(Status.INFO, "Search the name of recently added ROLE");
         Assert.assertTrue(searchedRoleRecords.isDisplayed());
         test.log(Status.INFO, "Verify recently added ROLE display");

@@ -19,7 +19,7 @@
     </build>
     <packaging>jar</packaging>
 
-    <name>nexlp</name>
+    <name>PrimeBPM</name>
     <url>http://maven.apache.org</url>
 
     <properties>
