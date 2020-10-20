@@ -1,10 +1,14 @@
 package config;
 
+import helperMethods.dataGenerator;
+
 /**
  * Created by manisha.jadhav on 12-02-2020.
  * In config
  */
 public class defineConstants {
+
+    dataGenerator produce = new dataGenerator();
 
     //Test data file Path
     public static final String Path_TestData = "Test_Data/Test_Data.xlsx";
@@ -35,12 +39,22 @@ public class defineConstants {
     public static final String newRoleCreatedSuccessMsg = "Role added successfully";
     public static final String newRoleUploadedSuccessMsg = "Role repository excel uploaded successfully.";
 
-
     //Designer Page Data for New Framework
-    public static final String frameworkName="HS Corporate 12";
-    public static final String parentProcess = "Test1";
-    public static final String childProcess1 = "Test2";
-    public static final String childProcess2 = "Test3";
+//    public final String frameworkName="HS CORPORATE 12" + produce.generateRandomString();
+    public static final String searchString = "TESTCKZZSBUAOT";
+    public static final String searchStringForDrawingDesignMap = "TESTHUIXMIJEIA";
+    public final String parentProcess = "Test1" + produce.generateRandomString();
+    public final String childProcess1 = "Test2" + produce.generateRandomString();
+    public final String childProcess2 = "Test3" + produce.generateRandomString();
+
+    public static final String frameworkSavedSuccessMsg = "Success\n" + "Framework updated successfully.";
+    public static final String librarySavedSuccessMsg = "Success\n" + "Process library updated successfully.";
+    public static final String processMapSavedSuccessMsg = "Success\n" + "Process Map saved successfully.</div>";
+
+    public static final String checkInSuccessMsg = "Success\n" + "Check in successful.";
+    public static final String checkOutsuccessMsg = "Success\n" + "Check out successful.";
+    public static final String savedProcedureMsg = "Success\n" + "Procedure saved successfully";
+    public static final String searchStringForInProgressProcess = "t1";
 
     public static final String loginErrormsg = "Sign in failed";
 }

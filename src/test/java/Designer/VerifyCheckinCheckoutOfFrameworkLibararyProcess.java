@@ -7,10 +7,11 @@ import org.testng.annotations.Test;
 import pageFactory_Designer.DesignerPage;
 import pageFactory_Designer.loginPage;
 
+import static base.baseClass.extent;
 
-public class VerifyNewFrameworkCreatedOnDesignerPage extends baseClass {
+public class VerifyCheckinCheckoutOfFrameworkLibararyProcess  extends baseClass{
     @Test(alwaysRun = true)
-    public void VerifyNewFrameworkCreated() throws Exception {
+    public void VerifyCheckinCheckoutOfFrameworkLibararyProcess() throws Exception {
 
         test = extent.createTest("Verify with valid username, password",
                 "The user should be logged in successfully ");
@@ -22,7 +23,9 @@ public class VerifyNewFrameworkCreatedOnDesignerPage extends baseClass {
         driver.get(read.getCellData(defineConstant.AdminURL_Row, defineConstant.AdminURL_Col, "Admin"));
 
         login.loginWithValid_User();
-        designer.verifyNewFrameworkCreatedSuccessfully();
-        Thread.sleep(5000);
+        designer.checkinCheckoutFramework();
+        designer.checkinCheckoutLibrary();
+        designer.checkinCheckoutProcess();
+        Thread.sleep(3000);
     }
 }

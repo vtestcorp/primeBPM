@@ -16,6 +16,9 @@
         <parameter name="browserType" value="chrome"/>
         <classes>
             <class name="Designer.VerifyNewFrameworkCreatedOnDesignerPage"></class>
+            <class name="Designer.VerifyCheckinCheckoutOfFrameworkLibararyProcess"></class>
+            <class name="Designer.VerifyRapidProcessMappingDesign"></class>
+            <class name="Designer.VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode"></class>
         </classes>
     </test>
 </suite>
