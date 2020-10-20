@@ -12,8 +12,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 import pageFactory_Common.CommonLocators;
+import pageFactory_Designer.DesignerPage;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -79,6 +81,15 @@ public class MyProcessesPage {
     @FindBy(xpath = "//div[contains(@class,'dispaly-block')]//span[contains(text(),'Submit')]")
     public WebElement submitBtnOnForm;
 
+    @FindBy(xpath = "//button[contains(@ng-click,'assignuser()') and contains(text(),'Submit')]")
+    private WebElement submitBtnOnProcessUser;
+
+    @FindBy(xpath = "//button[contains(@ng-click,'sendappusers()') and contains(text(),'Submit')]")
+    private WebElement submitBtnOnSendAprrovalRqst;
+
+    @FindBy(xpath = "//button[contains(@ng-click,'approvalPopup')]")
+    private WebElement approveBtn;
+
     @FindBy(xpath = "//button[@title='More...']")
     private WebElement moreOption;
 
@@ -91,50 +102,80 @@ public class MyProcessesPage {
     @FindBy(xpath = "//div[@class='tox-dropzone']//input[@type='file']")
     private WebElement uploadFileBtn;
 
+    @FindBy(xpath = "//md-icon[@title='Process Pending For Approval']//span")
+    public WebElement approvalTab;
+
+    @FindBy(xpath = "//span[@title='More']")
+    public WebElement moreOptionBtn;
+
+    @FindBy(xpath = "//md-icon[@md-svg-src='dist/images/Sendforapproval_svg.svg']")
+    public WebElement sendForApproval;
+
+    @FindBy(xpath = "//div[@title='Assign User']")
+    private WebElement assignUserForLibraryElement;
+
+    @FindBy(xpath = "//span[contains(@id,'dropdownMenu')]//md-icon")
+    private WebElement backButton;
+
+    @FindBy(xpath = "//select[@id='optgroup']")
+    private WebElement selectUserFromProcessUserPopup;
+
+    @FindBy(xpath = "//button[@id='optgroup_rightSelected']")
+    private WebElement rightSelectUserIcon;
+
+    @FindBy(xpath = "//div[contains(@id,'toast-container')]")
+    public WebElement toastMsgs;
+
+    @FindBy(xpath = "//md-select[@ng-model='processtype']")
+    public WebElement sendApprovalTypeDropDown;
+
+    @FindBy(xpath = "//md-select-menu[contains(@id,'select_menu')]//div[contains(text(),'Parallel')]")
+    private WebElement selectParallelTypeDropDwnOnSendApproval;
+
     //End of My Processes element page//
     //Start of method of My Processes page//
 
-    public void clickOnMyProcessesOption(){
-        applyWait.waitForElementToBeClickable(myProcessTab,30).click();
-        test.log(Status.INFO,"User click on MY PROCESSES option");
+    public void clickOnMyProcessesOption() {
+        applyWait.waitForElementToBeClickable(myProcessTab, 30).click();
+        test.log(Status.INFO, "User click on MY PROCESSES option");
     }
 
-    public void clickOnInProgressProcessMapFromList(){
-        applyWait.waitForElementToBeClickable(selectProcessFromMyProcessList,30).click();
-        test.log(Status.INFO,"User click on an IN PROGRESS process map name");
+    public void clickOnInProgressProcessMapFromList() {
+        applyWait.waitForElementToBeClickable(selectProcessFromMyProcessList, 30).click();
+        test.log(Status.INFO, "User click on an IN PROGRESS process map name");
     }
 
-    public void clickOnCheckInBtn(){
-        boolean visibilityOfCheckInBtn = applyWait.waitForElementToBeClickable(checkinBtn,30).isDisplayed();
-        if (visibilityOfCheckInBtn == true){
-            applyWait.waitForElementToBeClickable(checkinBtn,30).click();
-            test.log(Status.INFO,"User click on Check In button on Process Map page");
+    public void clickOnCheckInBtn() {
+        boolean visibilityOfCheckInBtn = applyWait.waitForElementToBeClickable(checkinBtn, 30).isDisplayed();
+        if (visibilityOfCheckInBtn == true) {
+            applyWait.waitForElementToBeClickable(checkinBtn, 30).click();
+            test.log(Status.INFO, "User click on Check In button on Process Map page");
 
-            applyWait.waitForElementToBeClickable(yesConfirmationPopup,30).click();
-            test.log(Status.INFO,"User click on Yes button on confirmation popup");
+            applyWait.waitForElementToBeClickable(yesConfirmationPopup, 30).click();
+            test.log(Status.INFO, "User click on Yes button on confirmation popup");
         }
-        verify.assertEquals(constants.checkInSuccessMsg,commonLocators.toastMsgs);
+        verify.assertEquals(constants.checkInSuccessMsg, commonLocators.toastMsgs);
     }
 
-    public void clickOnTaskElement(){
+    public void clickOnTaskElement() {
         Actions actions = new Actions(driver);
         actions.click(processBox).perform();
         test.log(Status.INFO, "User click on task box element");
     }
 
-    public void clickOnViewProcedureOptionOnTaskElement(){
-        applyWait.waitForElementToBeClickable(viewProcedure,30).click();
-        test.log(Status.INFO,"User click on add/edit procedure option on Task element");
+    public void clickOnViewProcedureOptionOnTaskElement() {
+        applyWait.waitForElementToBeClickable(viewProcedure, 30).click();
+        test.log(Status.INFO, "User click on add/edit procedure option on Task element");
     }
 
-    public void clickOnAddEditProcedureOptionOnTaskElement(){
-        applyWait.waitForElementToBeClickable(addEditProcedureOnTaskElement,30).click();
-        test.log(Status.INFO,"User click on add/edit procedure option on Task element");
+    public void clickOnAddEditProcedureOptionOnTaskElement() {
+        applyWait.waitForElementToBeClickable(addEditProcedureOnTaskElement, 30).click();
+        test.log(Status.INFO, "User click on add/edit procedure option on Task element");
     }
 
     public void addInfoOnProcedureForEditTask() throws Exception {
-        applyWait.waitForElementToBeClickable(procedureDescription,30).sendKeys(produce.generateRandomString());
-        test.log(Status.INFO,"User type procedure info random text");
+        applyWait.waitForElementToBeClickable(procedureDescription, 30).sendKeys(produce.generateRandomString());
+        test.log(Status.INFO, "User type procedure info random text");
 
         Actions builder = new Actions(driver);
         Thread.sleep(3000);
@@ -154,10 +195,10 @@ public class MyProcessesPage {
         actions.keyPress(KeyEvent.VK_V);
         actions.keyRelease(KeyEvent.VK_CONTROL);
         Thread.sleep(7000);
-        test.log(Status.INFO,"User takes screenshot and paste to procedure text area");
+        test.log(Status.INFO, "User takes screenshot and paste to procedure text area");
     }
 
-    public void clickOnSubmitBtn(){
+    public void clickOnSubmitBtn() {
         Actions actions = new Actions(driver);
         driver.switchTo().defaultContent();
         actions.moveToElement(submitBtnOnForm).perform();
@@ -165,16 +206,21 @@ public class MyProcessesPage {
         test.log(Status.INFO, "User click on Submit button");
     }
 
-    public void clickOnCheckOutBtn(){
-        boolean visibilityOfCheckOutBtn = applyWait.waitForElementToBeClickable(checkoutBtn,30).isDisplayed();
-        if (visibilityOfCheckOutBtn == true){
-            applyWait.waitForElementToBeClickable(checkoutBtn,30).click();
-            test.log(Status.INFO,"User click on Check In button on Process Map page");
+    public void clickSubmitBtnOnProcessUser(){
+        applyWait.waitForElementToBeClickable(submitBtnOnProcessUser,30).click();
+        test.log(Status.INFO, "User click on Submit button");
+    }
 
-            applyWait.waitForElementToBeClickable(yesConfirmationPopup,30).click();
-            test.log(Status.INFO,"User click on Yes button on confirmation popup");
+    public void clickOnCheckOutBtn() {
+        boolean visibilityOfCheckOutBtn = applyWait.waitForElementToBeClickable(checkoutBtn, 30).isDisplayed();
+        if (visibilityOfCheckOutBtn == true) {
+            applyWait.waitForElementToBeClickable(checkoutBtn, 30).click();
+            test.log(Status.INFO, "User click on Check In button on Process Map page");
+
+            applyWait.waitForElementToBeClickable(yesConfirmationPopup, 30).click();
+            test.log(Status.INFO, "User click on Yes button on confirmation popup");
         }
-        verify.assertEquals(constants.checkOutsuccessMsg,commonLocators.toastMsgs);
+        verify.assertEquals(constants.checkOutsuccessMsg, commonLocators.toastMsgs);
     }
 
     public void addOrEditProcedureInCheckedInAndCheckedOutMode() throws Exception {
@@ -210,5 +256,141 @@ public class MyProcessesPage {
         Thread.sleep(2000);
         driver.switchTo().frame("ui-tinymce-2_ifr");
         verify.assertTrue(addedProcedureOnTaskElement.isDisplayed());
+    }
+
+    public void clickOnMoreOptionBtn() {
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        test.log(Status.INFO, "User click On More option");
+    }
+
+    public void clickOnSendForApprovalBtn() {
+        applyWait.waitForElementToBeClickable(sendForApproval, 30).click();
+        test.log(Status.INFO, "User click On Send For Approval option");
+    }
+
+    public void setAssignUserForLibraryElement() {
+        applyWait.waitForElementToBeClickable(assignUserForLibraryElement, 30).click();
+        test.log(Status.INFO,"User click on Assign User option");
+    }
+
+    public void clickOnBackBtn(){
+        applyWait.waitForElementToBeClickable(backButton,30).click();
+        test.log(Status.INFO,"User click on back button");
+    }
+
+    public void verifySendApprovalRequestOfProcessMapSerialCycle() throws Exception {
+        DesignerPage designerPage = new DesignerPage(driver,test);
+        String name;
+        Thread.sleep(3000);
+        clickOnMyProcessesOption();
+        Thread.sleep(3000);
+        for (int i = 0; i < processeslist.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (name.equals(constants.searchStringForSendForApprovalSerialTest)) {
+                applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
+                test.log(Status.INFO, "Click Particular In-Progress Process");
+                break;
+            }
+        }
+        Thread.sleep(3000);
+        clickOnBackBtn();
+        Thread.sleep(3000);
+        designerPage.clickOnLibraryElement();
+        Thread.sleep(3000);
+        setAssignUserForLibraryElement();
+        Thread.sleep(3000);
+        Select selectUserDropDown = new Select(selectUserFromProcessUserPopup);
+        selectUserDropDown.selectByVisibleText(constants.processApprover);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(rightSelectUserIcon,30).click();
+        Thread.sleep(3000);
+        selectUserDropDown.selectByVisibleText(constants.secondProcessApproverUser);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(rightSelectUserIcon,30).click();
+        Thread.sleep(3000);
+        clickSubmitBtnOnProcessUser();
+        Thread.sleep(4000);
+        verify.assertEquals(toastMsgs,constants.userAssignedMsg);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(designerPage.goToProcessMapOption,30).click();
+        test.log(Status.INFO,"User click on Go To Process Map button");
+        Thread.sleep(3000);
+        clickOnCheckInBtn();
+        Thread.sleep(3000);
+        clickOnMoreOptionBtn();
+        clickOnSendForApprovalBtn();
+        Thread.sleep(3000);
+        selectUserDropDown.selectByVisibleText(constants.processApprover);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(rightSelectUserIcon,30).click();
+        Thread.sleep(3000);
+        selectUserDropDown.selectByVisibleText(constants.secondProcessApproverUser);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(rightSelectUserIcon,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(submitBtnOnSendAprrovalRqst,30).click();
+        Thread.sleep(4000);
+        verify.assertEquals(toastMsgs,constants.sendApprovalMsg);
+    }
+
+    public void verifySendApprovalRequestOfProcessMapParallelCycle() throws Exception {
+        DesignerPage designerPage = new DesignerPage(driver,test);
+        String name;
+        Thread.sleep(3000);
+        clickOnMyProcessesOption();
+        Thread.sleep(3000);
+        for (int i = 0; i < processeslist.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (name.equals(constants.searchStringForSendForApprovalParallelTest)) {
+                applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
+                test.log(Status.INFO, "Click Particular In-Progress Process");
+                break;
+            }
+        }
+        Thread.sleep(3000);
+        clickOnBackBtn();
+        Thread.sleep(3000);
+        designerPage.clickOnLibraryElement();
+        Thread.sleep(3000);
+        setAssignUserForLibraryElement();
+        Thread.sleep(3000);
+        Select selectUserDropDown = new Select(selectUserFromProcessUserPopup);
+        selectUserDropDown.selectByVisibleText(constants.processApprover);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(rightSelectUserIcon,30).click();
+        Thread.sleep(3000);
+        selectUserDropDown.selectByVisibleText(constants.secondProcessApproverUser);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(rightSelectUserIcon,30).click();
+        Thread.sleep(3000);
+        clickSubmitBtnOnProcessUser();
+        Thread.sleep(4000);
+        verify.assertEquals(toastMsgs,constants.userAssignedMsg);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(designerPage.goToProcessMapOption,30).click();
+        test.log(Status.INFO,"User click on Go To Process Map button");
+        Thread.sleep(3000);
+        clickOnCheckInBtn();
+        Thread.sleep(3000);
+        clickOnMoreOptionBtn();
+        clickOnSendForApprovalBtn();
+        Thread.sleep(3000);
+        selectUserDropDown.selectByVisibleText(constants.processApprover);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(rightSelectUserIcon,30).click();
+        Thread.sleep(3000);
+        selectUserDropDown.selectByVisibleText(constants.secondProcessApproverUser);
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(rightSelectUserIcon,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(sendApprovalTypeDropDown,30).click();
+        test.log(Status.INFO," User click on type dropdown APPROVAL cycle");
+        Thread.sleep(4000);
+        applyWait.waitForElementToBeClickable(selectParallelTypeDropDwnOnSendApproval,30).click();
+        test.log(Status.INFO," Under TYPE, select PARALLEL APPROVAL cycle");
+        Thread.sleep(4000);
+        applyWait.waitForElementToBeClickable(submitBtnOnSendAprrovalRqst,30).click();
+        Thread.sleep(4000);
+        verify.assertEquals(toastMsgs,constants.sendApprovalMsg);
     }
 }

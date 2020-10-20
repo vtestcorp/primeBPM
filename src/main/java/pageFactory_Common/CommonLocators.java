@@ -40,27 +40,11 @@ public class CommonLocators {
     @FindBy(xpath = "//button[@ng-model='checkOut']")
     public WebElement checkoutBtn;
 
-    @FindBy(xpath = "//span[@title='More']")
-    public WebElement moreOptionBtn;
-
-    @FindBy(xpath = "//md-icon[@md-svg-src='dist/images/Sendforapproval_svg.svg']")
-    public WebElement sendForApproval;
-
     @FindBy(xpath = "//span[contains(text(),'Submit')]")
     public WebElement submitBtnOnForm;
 
-    @FindBy(xpath = "//md-icon[@title='Process Pending For Approval']//span")
-    public WebElement approvalTab;
+
 
     //End Of Common locators throughout application//
     //Start of common methods//
-
-    public void clickOnMoreOptionBtn(){
-        applyWait.waitForElementToBeClickable(moreOptionBtn,30).click();
-        test.log(Status.INFO,"User click On More option");
-    }
-
-    public void clickOnSendForApprovalBtn(){
-        applyWait.waitForElementToBeClickable(sendForApproval,30).click();
-    }
 }

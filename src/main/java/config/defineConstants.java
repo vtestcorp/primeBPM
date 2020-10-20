@@ -24,11 +24,11 @@ public class defineConstants {
     public static final int AdminPassword_Row = 7;
     public static final int AdminPassword_Col = 2;
 
-    public static final int orgName_Row = 2;
-    public static final int orgName_Col = 0;
+    public static final int PAUserName_Row = 8;
+    public static final int PAUserName_Col = 1;
 
-    public static final int roleName_Row = 2;
-    public static final int roleName_Col = 1;
+    public static final int PAPassword_Row = 8;
+    public static final int PAPassword_Col = 2;
 
     public static final int salary_Row = 2;
     public static final int salary_Col = 2;
@@ -54,7 +54,16 @@ public class defineConstants {
     public static final String checkInSuccessMsg = "Success\n" + "Check in successful.";
     public static final String checkOutsuccessMsg = "Success\n" + "Check out successful.";
     public static final String savedProcedureMsg = "Success\n" + "Procedure saved successfully";
-    public static final String searchStringForInProgressProcess = "t1";
+    public static final String searchStringForInProgressProcess = "ghfjfjkj";
+    public static final String searchStringForSendForApprovalSerialTest = "ihi";
+    public static final String searchStringForSendForApprovalParallelTest = "ghfjfjkj";
+    public static final String userAssignedMsg= "Success\n" + "Users assigned successfully.";
+    public static final String sendApprovalMsg = "Success\n"+"Process sent for approval successfully.";
+
+    //User Details
+    public static final String processApprover = "Test User PA (PA)";
+    public static final String secondProcessApproverUser = "PA  User (PA)";
+    public static final String processEditor =  "Test user PE (PE)";
 
     public static final String loginErrormsg = "Sign in failed";
 }

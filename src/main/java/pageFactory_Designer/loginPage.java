@@ -42,6 +42,12 @@ public class loginPage {
     @FindBy(xpath = "//span[contains(text(),'Sign in')]")
     private WebElement signIn;
 
+    @FindBy(xpath = "//a[@class='dropdown-toggle text-muted']")
+    private WebElement profileIcon;
+
+    @FindBy(xpath = "//a[@ng-click='gotoLogout();']//span")
+    private WebElement logoutOption;
+
     //End Login Page Elements//
 
     //Start Login Page Methods//
@@ -71,5 +77,19 @@ public class loginPage {
         clickOnSignIn();
     }
 
+    //Login as a Process Approval
+    public void loginAsProcessApproval_User() throws Exception {
+        ExcelUtils read = new ExcelUtils();
+        fillUserName(read.getCellData(constants.PAUserName_Row, constants.PAUserName_Col, "Admin"));
+        fillPassword(read.getCellData(constants.PAPassword_Row, constants.PAPassword_Col, "Admin"));
+        clickOnSignIn();
+    }
+
+    public void logoutFromApp(){
+        applyWait.waitForElementToBeClickable(profileIcon,30).click();
+        test.log(Status.INFO,"User click on profile icon");
+        applyWait.waitForElementToBeClickable(logoutOption,30).click();
+        test.log(Status.INFO,"User click on Log out option");
+    }
 }
 

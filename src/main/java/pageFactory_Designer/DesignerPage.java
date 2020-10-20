@@ -104,7 +104,7 @@ public class DesignerPage {
     //Start Of Process element page//
 
     @FindBy(xpath = "//div[contains(@class,'open')]//div[@title='Go to Process Map']")
-    private WebElement goToProcessMapOption;
+    public WebElement goToProcessMapOption;
 
     //End Of Process elementPage//
     //Start Of Process Map page//
@@ -548,11 +548,11 @@ public class DesignerPage {
                 break;
             }
         }
-        Thread.sleep(3000);
-        clickOnLibraryElement();
-        Thread.sleep(3000);
-        clickOnGoToLibraryOption();
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
+//        clickOnLibraryElement();
+//        Thread.sleep(3000);
+//        clickOnGoToLibraryOption();
+//        Thread.sleep(3000);
         clickOnGoToProcessMap();
         setDesignRapidProcessMap();
         addNewOrganisationUnitOnTaskCreation();
