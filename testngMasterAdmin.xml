@@ -5,18 +5,22 @@
     <listeners>
         <listener class-name="listeners.AnnotationTransformer"/>
     </listeners>
-   <!-- <test name="check systemAdmin">
+    <test name="check systemAdmin">
         <parameter name="browserType" value="chrome"/>
         <classes>
-           <class name="Admin.VerifyAddNewRoleInAdministration"/>
-            <class name="Admin.VerifyRoleGetUploadedSuccessfully"/>
+           <!--<class name="Admin.VerifyAddNewRoleInAdministration"/>
+            <class name="Admin.VerifyRoleGetUploadedSuccessfully"/>-->
         </classes>
-    </test>-->
+    </test>
     <test name="Designer-Create Framework/Library">
         <parameter name="browserType" value="chrome"/>
         <classes>
 <!--            <class name="Designer.VerifyNewFrameworkCreatedOnDesignerPage"/>-->
-            <class name="Designer.VerifyUserIsAbleToUndoCheckout"/>
+           <!-- <class name="Designer.VerifyUserIsAbleToUndoCheckout"/>
+            <class name="Designer.VerifyNewFrameworkCreatedOnDesignerPage"/>
+            <class name="Designer.VerifyCheckinCheckoutOfFrameworkLibararyProcess"/>
+           <class name="Designer.VerifyRapidProcessMappingDesign"/>-->
+               <class name="Designer.VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode"/>
         </classes>
     </test>
 </suite>

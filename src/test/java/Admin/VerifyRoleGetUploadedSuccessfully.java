@@ -10,7 +10,7 @@ import pageFactory_Designer.loginPage;
 
 public class VerifyRoleGetUploadedSuccessfully extends baseClass {
     @Test(alwaysRun = true)
-    public void importRole() throws Exception {
+    public void VerifyImportExportOfRoles() throws Exception {
 
         test = extent.createTest("User should be able to insert Roles through Admin (Settings) page by uploading Excel Templates");
 

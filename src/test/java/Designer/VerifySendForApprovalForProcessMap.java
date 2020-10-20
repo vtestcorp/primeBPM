@@ -7,12 +7,12 @@ import org.testng.annotations.Test;
 import pageFactory_Designer.DesignerPage;
 import pageFactory_Designer.loginPage;
 
+public class VerifySendForApprovalForProcessMap extends  baseClass{
 
-public class VerifyNewFrameworkCreatedOnDesignerPage extends baseClass {
     @Test(alwaysRun = true)
-    public void VerifyNewFrameworkCreated() throws Exception {
-
-        test = extent.createTest("User should be able to create NEW framework/library in the designer sectiona");
+    public void verifyRapidProcessMapping()throws Exception {
+        test = extent.createTest("Verify with valid username, password",
+                "The user should be logged in successfully ");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();
@@ -21,7 +21,7 @@ public class VerifyNewFrameworkCreatedOnDesignerPage extends baseClass {
         driver.get(read.getCellData(defineConstant.AdminURL_Row, defineConstant.AdminURL_Col, "Admin"));
 
         login.loginWithValid_User();
-        designer.verifyNewFrameworkCreatedSuccessfully();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
+
     }
 }

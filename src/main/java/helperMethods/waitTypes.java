@@ -3,10 +3,14 @@ package helperMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -71,5 +75,17 @@ public class waitTypes {
         };
         System.out.println(function);
         wait.until(function);
+    }
+
+    public void clickOnElementOfTableByIndex(List<WebElement> elementsArray, String actualName){
+        int indexOfElementArray;
+        Actions actions = new Actions(driver);
+        SoftAssert verify = new SoftAssert();
+        int count = elementsArray.size();
+        for (indexOfElementArray=0;indexOfElementArray<count;indexOfElementArray++) {
+            if(actualName.equals(elementsArray.get(indexOfElementArray).getText().toString())){
+                waitForElementToBeClickable(elementsArray.get(indexOfElementArray),30).click();
+            }
+        }
     }
 }

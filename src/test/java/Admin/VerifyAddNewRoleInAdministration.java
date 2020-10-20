@@ -10,7 +10,7 @@ import pageFactory_Admin.AdminPage;
 
 public class VerifyAddNewRoleInAdministration extends baseClass {
     @Test(alwaysRun = true)
-    public void ValidLogin() throws Exception {
+    public void VerifyAddNewRole() throws Exception {
 
         test = extent.createTest("Add Roles (Through Repository)",
                 "User should be able to ADD Roles through Admin (Settings) page");
