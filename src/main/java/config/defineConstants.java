@@ -30,6 +30,12 @@ public class defineConstants {
     public static final int PAPassword_Row = 8;
     public static final int PAPassword_Col = 2;
 
+    public static final int PASecondUserName_Row = 9;
+    public static final int PASecondUserName_Col = 1;
+
+    public static final int PASecondPassword_Row = 9;
+    public static final int PASecondPassword_Col = 2;
+
     public static final int salary_Row = 2;
     public static final int salary_Col = 2;
 
@@ -41,8 +47,9 @@ public class defineConstants {
 
     //Designer Page Data for New Framework
 //    public final String frameworkName="HS CORPORATE 12" + produce.generateRandomString();
-    public static final String searchString = "TESTCKZZSBUAOT";
-    public static final String searchStringForDrawingDesignMap = "TESTHUIXMIJEIA";
+    public static final String searchString = "TEST22102020OCT";
+    public static final String searchStringForDrawingDesignMap = "TEST22102020OCT";
+
     public final String parentProcess = "Test1" + produce.generateRandomString();
     public final String childProcess1 = "Test2" + produce.generateRandomString();
     public final String childProcess2 = "Test3" + produce.generateRandomString();
@@ -54,11 +61,21 @@ public class defineConstants {
     public static final String checkInSuccessMsg = "Success\n" + "Check in successful.";
     public static final String checkOutsuccessMsg = "Success\n" + "Check out successful.";
     public static final String savedProcedureMsg = "Success\n" + "Procedure saved successfully";
-    public static final String searchStringForInProgressProcess = "ghfjfjkj";
-    public static final String searchStringForSendForApprovalSerialTest = "ihi";
-    public static final String searchStringForSendForApprovalParallelTest = "ghfjfjkj";
+    public static final String searchStringForInProgressProcess = "erfefer";
+    public static final String searchProcessForSendForApprovalSerialTest = "erfefer";
+    public static final String searchProcessForSendForApprovalParallelTest = "erfefer";
+
+    public static final String searchProcessForApproveProcessMap = "Process564";
+    public static final String searchProcessForRejectionApproveProcessMap = "Process466";
     public static final String userAssignedMsg= "Success\n" + "Users assigned successfully.";
     public static final String sendApprovalMsg = "Success\n"+"Process sent for approval successfully.";
+    public static final String processRejectApprovalMsg  = "Success\n" + "The Process is rejected";
+    public static final String ProcessApprovedMsg = "×\n" + "Success\n" + "The process map is approved";
+    public static final String commentAddedSuccessMsg = "Success\n" + "Comment added successfully.";
+    public static final String searchApproveProcess = "Map";
+    public static final String searchApproveFramework = "TESTZDOUU6CFSX";
+    public static final String processPublishSuccessMsg="Success\n" + "Process published successfully.";
+    public static final String versionChangedNumber = "X.0";
 
     //User Details
     public static final String processApprover = "Test User PA (PA)";

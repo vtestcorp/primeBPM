@@ -18,8 +18,6 @@ import pageFactory_Common.CommonLocators;
 import pageFactory_Designer.DesignerPage;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 public class MyProcessesPage {
@@ -43,10 +41,7 @@ public class MyProcessesPage {
 
     //Start of My Processes page element//
     @FindBy(xpath = "//a[@ui-sref='myprocess']")
-    private WebElement myProcessTab;
-
-    @FindBy(xpath = "//*[@id=\"content\"]/div/section/md-content/div/div/div/div[2]/table/tbody/tr[1]/td[2]/div")
-    private WebElement selectProcessFromMyProcessList;                  //Change with unique id
+    public WebElement myProcessTab;
 
     @FindBy(xpath = "//body[@id='tinymce']")
     private WebElement addedProcedureOnTaskElement;
@@ -87,9 +82,6 @@ public class MyProcessesPage {
     @FindBy(xpath = "//button[contains(@ng-click,'sendappusers()') and contains(text(),'Submit')]")
     private WebElement submitBtnOnSendAprrovalRqst;
 
-    @FindBy(xpath = "//button[contains(@ng-click,'approvalPopup')]")
-    private WebElement approveBtn;
-
     @FindBy(xpath = "//button[@title='More...']")
     private WebElement moreOption;
 
@@ -101,9 +93,6 @@ public class MyProcessesPage {
 
     @FindBy(xpath = "//div[@class='tox-dropzone']//input[@type='file']")
     private WebElement uploadFileBtn;
-
-    @FindBy(xpath = "//md-icon[@title='Process Pending For Approval']//span")
-    public WebElement approvalTab;
 
     @FindBy(xpath = "//span[@title='More']")
     public WebElement moreOptionBtn;
@@ -138,11 +127,6 @@ public class MyProcessesPage {
     public void clickOnMyProcessesOption() {
         applyWait.waitForElementToBeClickable(myProcessTab, 30).click();
         test.log(Status.INFO, "User click on MY PROCESSES option");
-    }
-
-    public void clickOnInProgressProcessMapFromList() {
-        applyWait.waitForElementToBeClickable(selectProcessFromMyProcessList, 30).click();
-        test.log(Status.INFO, "User click on an IN PROGRESS process map name");
     }
 
     public void clickOnCheckInBtn() {
@@ -286,7 +270,7 @@ public class MyProcessesPage {
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchStringForSendForApprovalSerialTest)) {
+            if (name.equals(constants.searchProcessForSendForApprovalSerialTest)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -341,7 +325,7 @@ public class MyProcessesPage {
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchStringForSendForApprovalParallelTest)) {
+            if (name.equals(constants.searchProcessForSendForApprovalParallelTest)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;

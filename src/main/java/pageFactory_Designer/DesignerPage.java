@@ -94,11 +94,17 @@ public class DesignerPage {
     @FindBy(xpath = "//div[@class='td ng-binding ng-scope']")
     private List<WebElement> frameworkName1;
 
+    @FindBy(xpath = "//a[contains(@ng-click,'ppRedirection')]")
+    private List<WebElement> approveProcessList;
+
     @FindBy(xpath = "//div[@class='td ng-binding ng-scope']")
     private List<WebElement> frameworkNameTable;
 
     @FindBy(xpath = "//span[contains(@id,'dropdownMenu')]//md-icon")
     private WebElement backButton;
+
+    @FindBy(xpath = "//a[@href='#/dashboard']")
+    private WebElement dashboardTab;
 
     //End of Library page//
     //Start Of Process element page//
@@ -193,6 +199,70 @@ public class DesignerPage {
     @FindBy(xpath = "//div[contains(@id,'toast-container')]")
     public WebElement toastMsgs;
 
+    @FindBy(xpath = "//md-icon[@title='Process Pending For Approval']")
+    public WebElement approvalTab;
+
+    @FindBy(xpath = "//button[contains(@ng-click,'approvalPopup')]")
+    private WebElement approveBtn;
+
+    @FindBy(xpath = "//button[contains(@ng-click,'Reject')]")
+    private WebElement rejectBtn;
+
+    @FindBy(xpath = "//*[contains(@data-element-id,'DataObject')]")
+    private WebElement documentElement;
+
+
+    @FindBy(xpath = "//div[contains(@class,'DataObject')]//div[@title='comment']")
+    private WebElement commentIconOnDocumentElement;
+
+    @FindBy(xpath = "//textarea[@name='comments']")
+    private WebElement commentBox;
+
+    @FindBy(xpath = "//div[contains(@class,'Task')]//div[@title='comment']")
+    private WebElement commentIconOnTaskElement;
+
+    @FindBy(xpath = "//button[contains(text(),'Add Generic Comments')]")
+    private WebElement addGenericCommentsOption;
+
+    @FindBy(xpath = "//input[contains(@ng-model,'processmap')]")
+    private WebElement processMapCheckBoxOnApprovePopup;
+
+    @FindBy(xpath = "//div[contains(text(),'Pending Approvals')]")
+    private WebElement approvalTabOnDashboard;
+
+    @FindBy(xpath = "//input[contains(@ng-model,'processattr')]")
+    private WebElement processInformationCheckboxOnApprovePopup;
+
+    @FindBy(xpath = "//input[contains(@ng-model,'processtask')]")
+    private WebElement taskInformationCheckboxOnApprovePopup;
+
+    @FindBy(xpath = "//span[@title='More']")
+    public WebElement moreOptionBtn;
+
+    @FindBy(xpath = "//button[@title='SOP Report']")
+    private WebElement sopReportBtn;
+
+    @FindBy(xpath = "//button[@title='BPR Report']")
+    private WebElement bprReportBtn;
+
+    @FindBy(xpath = "//md-select[@ng-model='mapReport.DownloadType']")
+    private WebElement downloadAsTypeDropdown;
+
+    @FindBy(xpath = "//md-option//div[contains(text(),'Word')]")
+    private WebElement wordTypeOptionOfDownloadAsDrpdwn;
+
+    @FindBy(xpath = "//md-option//div[contains(text(),'PDF')]")
+    private WebElement pdfTypeOptionOfDownloadAsDrpdwn;
+
+    @FindBy(xpath = "//tr[contains(@ng-repeat,'listmsg in Comments')]")
+    private List<WebElement> commentRowsOnCommentSummary;
+
+    @FindBy(xpath = "//button[contains(text(),'Comments Summary')]")
+    private WebElement commentSummaryBtn;
+
+    @FindBy(xpath = "//button[contains(@ng-click,'answer')]")
+    private WebElement closeIconOnPopup;
+
     //End Of Process Map page//
     //Start Of Designer Page methods//
 
@@ -207,7 +277,7 @@ public class DesignerPage {
     }
 
     public  void fillDetailsToCreateNewFramework(){
-        String frameworkName = produce.generateName();
+        String frameworkName = "Test22102020OCT";
         applyWait.waitForElementToBeClickable(nameInputField, 50).sendKeys(frameworkName);
         test.log(Status.INFO, "User provide name for new framework");
     }
@@ -384,7 +454,7 @@ public class DesignerPage {
         System.out.println(frameworkName1.size());
         for (int i = 0; i < frameworkName1.size(); i++) {
             frameworkName = applyWait.waitForElementToBeClickable(frameworkName1.get(i), 30).getText();
-            if (frameworkName.equals(constants.searchString)) {
+            if (frameworkName.equals(constants.searchString.toUpperCase())) {
                 applyWait.waitForElementToBeClickable(frameworkName1.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular Framework");
                 break;
@@ -542,17 +612,17 @@ public class DesignerPage {
         System.out.println(frameworkName1.size());
         for (int i = 0; i < frameworkName1.size(); i++) {
             name = applyWait.waitForElementToBeClickable(frameworkName1.get(i), 30).getText();
-            if (name.equals(constants.searchStringForDrawingDesignMap)) {
+            if (name.equals(constants.searchStringForDrawingDesignMap.toUpperCase())) {
                 applyWait.waitForElementToBeClickable(frameworkName1.get(i), 30).click();
-                test.log(Status.INFO, "Click Particular Framework");
+                test.log(Status.INFO, "Click Particular Process");
                 break;
             }
         }
-//        Thread.sleep(3000);
-//        clickOnLibraryElement();
-//        Thread.sleep(3000);
-//        clickOnGoToLibraryOption();
-//        Thread.sleep(3000);
+        Thread.sleep(3000);
+        clickOnLibraryElement();
+        Thread.sleep(3000);
+        clickOnGoToLibraryOption();
+        Thread.sleep(3000);
         clickOnGoToProcessMap();
         setDesignRapidProcessMap();
         addNewOrganisationUnitOnTaskCreation();
@@ -572,4 +642,217 @@ public class DesignerPage {
         verify.assertEquals(constants.processMapSavedSuccessMsg,toastMsgs);
     }
 
+    public void approveProcessMap() throws Exception {
+        applyWait.waitForElementToBeClickable(approvalTab,30).click();
+        test.log(Status.INFO,"User click on 'Process Pending for Approval' option on TOP menu bar");
+        String name;
+        Thread.sleep(3000);
+        Actions actions =new Actions(driver);
+        Thread.sleep(5000);
+        System.out.println(approveProcessList.size()+"&&&&&&&&&&");
+        for (int i = 0; i < approveProcessList.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
+            if (name.equals(constants.searchProcessForApproveProcessMap)) {
+                applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).click();
+                test.log(Status.INFO, "Click Particular Process");
+                break;
+            }
+        }
+        applyWait.waitForElementToBeClickable(documentElement,30).click();
+        test.log(Status.INFO,"User click on document element");
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentIconOnDocumentElement,30).click();
+        test.log(Status.INFO,"User click on comment option");
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentBox,30).sendKeys("comment"+produce.generateRandomString());
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        test.log(Status.INFO,"User add a comments and click on submit");
+        Thread.sleep(4000);
+        verify.assertEquals(constants.commentAddedSuccessMsg,toastMsgs.getText());
+        actions.click(processBox).perform();
+        applyWait.waitForElementToBeClickable(commentIconOnTaskElement,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentBox,30).sendKeys("comment"+produce.generateRandomString());
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        Thread.sleep(3000);
+        verify.assertEquals(constants.commentAddedSuccessMsg,toastMsgs.getText());
+        test.log(Status.INFO,"Single click on a Task and add a COMMENT against it; hit SUBMIT");
+        applyWait.waitForElementToBeClickable(addGenericCommentsOption,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentBox,30).sendKeys("comment"+produce.generateRandomString());
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        Thread.sleep(3000);
+        verify.assertEquals(constants.commentAddedSuccessMsg,toastMsgs.getText());
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentSummaryBtn,30).click();
+        Thread.sleep(3000);
+        int commentsCount = commentRowsOnCommentSummary.size();
+        verify.assertTrue(commentsCount>0);
+        Thread.sleep(2000);
+        actions.click(closeIconOnPopup).perform();
+        test.log(Status.INFO,"Assert ALL comments get added successfully");
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        test.log(Status.INFO, "User click On More option");
+        applyWait.waitForElementToBeClickable(sopReportBtn,30).click();
+        Thread.sleep(3000);
+        test.log(Status.INFO," Click on 'ADD GENERIC Comment' and add 1 comment; hit SUBMIT");
+
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(wordTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(10000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,90).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        applyWait.waitForElementToBeClickable(sopReportBtn,30).click();
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(pdfTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        test.log(Status.INFO, "Click on MORE icon and generate SOP report (PDF and WORD format)");
+        Thread.sleep(5000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        Thread.sleep(5000);
+        applyWait.waitForElementToBeClickable(bprReportBtn,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(pdfTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(bprReportBtn,30).click();
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(wordTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        test.log(Status.INFO, "Click on MORE icon and generate BPR report (PDF and WORD format)");
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(approveBtn,30).click();
+        test.log(Status.INFO,"User click on APPROVE option on top right corner");
+
+        applyWait.waitForElementToBeClickable(processMapCheckBoxOnApprovePopup,30).click();
+        applyWait.waitForElementToBeClickable(processInformationCheckboxOnApprovePopup,30).click();
+        applyWait.waitForElementToBeClickable(taskInformationCheckboxOnApprovePopup,30).click();
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        test.log(Status.INFO,"User check ALL 3 boxes and hit SUBMIT On the item selection page");
+        Thread.sleep(9000);
+        verify.assertEquals(constants.ProcessApprovedMsg,toastMsgs.getText().toString());
+        Thread.sleep(3000);
+        for (int i = 0; i < approveProcessList.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
+            verify.assertNotSame(constants.searchProcessForApproveProcessMap,name);
+        }
+
+    }
+
+    public void verifyRejectApproval() throws Exception{
+        applyWait.waitForElementToBeClickable(approvalTabOnDashboard,30).click();
+        test.log(Status.INFO,"User click on 'Process Pending for Approval' option on TOP menu bar");
+        String name;
+        Thread.sleep(3000);
+        Actions actions =new Actions(driver);
+        Thread.sleep(5000);
+        System.out.println(approveProcessList.size()+"&&&&&&&&&&");
+        for (int i = 0; i < approveProcessList.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
+            if (name.equals(constants.searchProcessForRejectionApproveProcessMap)) {
+                applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).click();
+                test.log(Status.INFO, "Click Particular Process");
+                break;
+            }
+        }
+        applyWait.waitForElementToBeClickable(documentElement,30).click();
+        test.log(Status.INFO,"User click on document element");
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentIconOnDocumentElement,30).click();
+        test.log(Status.INFO,"User click on comment option");
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentBox,30).sendKeys("comment"+produce.generateRandomString());
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        Thread.sleep(4000);
+        verify.assertEquals(constants.commentAddedSuccessMsg,toastMsgs.getText());
+        Thread.sleep(3000);
+        test.log(Status.INFO,"User add a comments and click on submit");
+        Thread.sleep(2000);
+        actions.click(processBox).perform();
+        applyWait.waitForElementToBeClickable(commentIconOnTaskElement,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentBox,30).sendKeys("comment"+produce.generateRandomString());
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        Thread.sleep(4000);
+        test.log(Status.INFO,"Single click on a Task and add a COMMENT against it; hit SUBMIT");
+        verify.assertEquals(constants.commentAddedSuccessMsg,toastMsgs.getText());
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(addGenericCommentsOption,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentBox,30).sendKeys("comment"+produce.generateRandomString());
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        Thread.sleep(4000);
+        verify.assertEquals(constants.commentAddedSuccessMsg,toastMsgs.getText());
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(commentSummaryBtn,30).click();
+        Thread.sleep(3000);
+        int commentsCount = commentRowsOnCommentSummary.size();
+        verify.assertTrue(commentsCount>0);
+        Thread.sleep(2000);
+        actions.click(closeIconOnPopup).perform();
+        test.log(Status.INFO,"Assert ALL comments get added successfully");
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        test.log(Status.INFO, "User click On More option");
+        applyWait.waitForElementToBeClickable(sopReportBtn,30).click();
+        Thread.sleep(3000);
+        test.log(Status.INFO," Click on 'ADD GENERIC Comment' and add 1 comment; hit SUBMIT");
+
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(wordTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        Thread.sleep(5000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        applyWait.waitForElementToBeClickable(sopReportBtn,30).click();
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(pdfTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        test.log(Status.INFO, "Click on MORE icon and generate SOP report (PDF and WORD format)");
+        Thread.sleep(5000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        Thread.sleep(5000);
+        applyWait.waitForElementToBeClickable(bprReportBtn,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(pdfTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(bprReportBtn,30).click();
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(wordTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        test.log(Status.INFO, "Click on MORE icon and generate BPR report (PDF and WORD format)");
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(rejectBtn,30).click();
+        test.log(Status.INFO,"User click on REJECT option on top right corner");
+        applyWait.waitForElementToBeClickable(processMapCheckBoxOnApprovePopup,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(processInformationCheckboxOnApprovePopup,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(taskInformationCheckboxOnApprovePopup,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        test.log(Status.INFO,"User check ALL 3 boxes and hit SUBMIT On the item selection page");
+        Thread.sleep(8000);
+        verify.assertEquals(constants.processRejectApprovalMsg,toastMsgs.getText().toString());
+        Thread.sleep(3000);
+        for (int i = 0; i < approveProcessList.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
+            verify.assertNotSame(constants.searchProcessForRejectionApproveProcessMap,name);
+        }
+    }
 }

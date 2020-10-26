@@ -91,5 +91,13 @@ public class loginPage {
         applyWait.waitForElementToBeClickable(logoutOption,30).click();
         test.log(Status.INFO,"User click on Log out option");
     }
+
+    //Login as a Process Approval
+    public void loginAsSecondProcessApproval_User() throws Exception {
+        ExcelUtils read = new ExcelUtils();
+        fillUserName(read.getCellData(constants.PASecondUserName_Row, constants.PASecondUserName_Col, "Admin"));
+        fillPassword(read.getCellData(constants.PASecondPassword_Row, constants.PASecondPassword_Col, "Admin"));
+        clickOnSignIn();
+    }
 }
 
