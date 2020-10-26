@@ -11,8 +11,8 @@ public class VerifyDownloadSOPWordFormatReport extends baseClass{
 
         @Test(alwaysRun = true)
         public void verifyDownloadSOPWordFormatReport()throws Exception {
-            test = extent.createTest("Verify with valid username, password",
-                    "The user should be logged in successfully ");
+            test = extent.createTest("Download SOP Report (WORD)",
+                    "User should be able to Download SOP Report in WORD format");
 
             loginPage login = new loginPage(driver, test);
             ExcelUtils read = new ExcelUtils();

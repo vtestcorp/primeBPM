@@ -12,8 +12,8 @@ public class VerifyPublishedProcessMap extends baseClass{
 
     @Test(alwaysRun = true)
     public void verifyPublishesProcessMap()throws Exception {
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("Publish Process Map",
+                "User should be able to Publish an APPROVED Process Map");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();

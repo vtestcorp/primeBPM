@@ -11,8 +11,8 @@ public class VerifyRejectApprovalOfProcessMap extends baseClass {
 
     @Test(alwaysRun = true)
     public  void verifyRejectProcessMap() throws Exception {
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("Reject Process Map",
+                "User should be able to reject Approval of Process Map");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();

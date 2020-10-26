@@ -13,8 +13,8 @@ public class VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode extends baseCl
 
     @Test(alwaysRun = true)
     public void verifyAddOrEditProcedureInCheckedInAndCheckedOutMode() throws Exception{
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("Add/Edit Procedures (Under a Task)",
+                "User should be able to ADD or EDIT Procedures in Checked Out (editable) mode and VIEW it in Checked In (Locked) mode");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();

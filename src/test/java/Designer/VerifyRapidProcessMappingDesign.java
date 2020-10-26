@@ -10,8 +10,8 @@ import pageFactory_Designer.loginPage;
 public class VerifyRapidProcessMappingDesign extends baseClass {
     @Test(alwaysRun = true)
     public void verifyRapidProcessMapping()throws Exception {
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("Build Process Map",
+                "Designing of Process Map using: Rapid Process MappingDrawing Process Map");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();

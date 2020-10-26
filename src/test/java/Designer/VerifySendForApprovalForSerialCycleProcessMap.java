@@ -12,8 +12,8 @@ public class VerifySendForApprovalForSerialCycleProcessMap extends  baseClass{
 
     @Test(alwaysRun = true)
     public void verifySendApprovalRequest()throws Exception {
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("Send Process for Approval (Serial Cycle)",
+                "User should be able to send process for Approval");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();

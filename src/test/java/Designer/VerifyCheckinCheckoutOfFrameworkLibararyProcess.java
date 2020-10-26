@@ -13,8 +13,8 @@ public class VerifyCheckinCheckoutOfFrameworkLibararyProcess  extends baseClass{
     @Test(alwaysRun = true)
     public void VerifyCheckinCheckoutOfFrameworkLibararyProcess() throws Exception {
 
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("Check In / Check Out (Framework/Library/Process Map)",
+                "User should be able to perform Check In / Check Out functions without errors");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();

@@ -11,8 +11,8 @@ public class VerifyDownloadBprReportWordFormat extends baseClass {
 
     @Test(alwaysRun = true)
     public void verifyDownloadBprReportWordFormat()throws Exception {
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("Download BPR Report (Word)",
+                "User should be able to Download BPR Report in Word format ");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();

@@ -12,8 +12,8 @@ public class VerifyNewFrameworkCreatedOnDesignerPage extends baseClass {
     @Test(alwaysRun = true)
     public void VerifyNewFrameworkCreated() throws Exception {
 
-        test = extent.createTest("Verify with valid username, password",
-                "The user should be logged in successfully ");
+        test = extent.createTest("Create Framework/Library",
+                "User should be able to create NEW framework/library in the designer sectiona ");
 
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();
