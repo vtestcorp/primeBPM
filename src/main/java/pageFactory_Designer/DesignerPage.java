@@ -1,20 +1,24 @@
 package pageFactory_Designer;
 
 
+import base.baseClass;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import config.defineConstants;
 import helperMethods.dataGenerator;
 import helperMethods.waitTypes;
+import org.apache.poi.ss.formula.functions.T;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import pageFactory_Common.CommonLocators;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
 import java.util.List;
 
 public class DesignerPage {
@@ -105,6 +109,9 @@ public class DesignerPage {
 
     @FindBy(xpath = "//a[@href='#/dashboard']")
     private WebElement dashboardTab;
+
+    @FindBy(xpath = "//a[@ui-sref='myprocess']")
+    public WebElement myProcessTab;
 
     //End of Library page//
     //Start Of Process element page//
@@ -211,7 +218,6 @@ public class DesignerPage {
     @FindBy(xpath = "//*[contains(@data-element-id,'DataObject')]")
     private WebElement documentElement;
 
-
     @FindBy(xpath = "//div[contains(@class,'DataObject')]//div[@title='comment']")
     private WebElement commentIconOnDocumentElement;
 
@@ -262,6 +268,12 @@ public class DesignerPage {
 
     @FindBy(xpath = "//button[contains(@ng-click,'answer')]")
     private WebElement closeIconOnPopup;
+
+    @FindBy(xpath = "//a[contains(@ng-click,'generateLink')]")
+    private List<WebElement> processeslist;
+
+    @FindBy(xpath = "//md-checkbox[@role='checkbox']")
+    private WebElement selectAllCheckboxesOptionOnReportPopup;
 
     //End Of Process Map page//
     //Start Of Designer Page methods//
@@ -682,6 +694,7 @@ public class DesignerPage {
         applyWait.waitForElementToBeClickable(commentBox,30).sendKeys("comment"+produce.generateRandomString());
         applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
         Thread.sleep(3000);
+        test.log(Status.INFO," Click on 'ADD GENERIC Comment' and add 1 comment; hit SUBMIT");
         verify.assertEquals(constants.commentAddedSuccessMsg,toastMsgs.getText());
         Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(commentSummaryBtn,30).click();
@@ -696,8 +709,6 @@ public class DesignerPage {
         test.log(Status.INFO, "User click On More option");
         applyWait.waitForElementToBeClickable(sopReportBtn,30).click();
         Thread.sleep(3000);
-        test.log(Status.INFO," Click on 'ADD GENERIC Comment' and add 1 comment; hit SUBMIT");
-
         applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
         applyWait.waitForElementToBeClickable(wordTypeOptionOfDownloadAsDrpdwn,30).click();
         Thread.sleep(10000);
@@ -854,5 +865,150 @@ public class DesignerPage {
             name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
             verify.assertNotSame(constants.searchProcessForRejectionApproveProcessMap,name);
         }
+    }
+
+    public void clickOnMyProcessesOption() {
+        applyWait.waitForElementToBeClickable(myProcessTab, 30).click();
+        test.log(Status.INFO, "User click on MY PROCESSES option");
+    }
+
+    /**
+     * Verify given file exits from a specific directory with extension
+     * @param dirPath: file directory path
+     * @param fileWithExt: file name with extension
+     */
+    public boolean isFileDownloaded_Ext(String dirPath, String fileWithExt){
+        boolean flag=false;
+        File dir = new File(dirPath);
+        File[] files = dir.listFiles();
+        if (files == null || files.length == 0) {
+            flag = false;
+        }
+        for (int i = 0; i < files.length; i++) {
+            if(files[i].getName().contains(fileWithExt)) {
+                System.out.println("filename :"+ files[i].getName());
+                flag=true;
+            }
+        }
+        return flag;
+    }
+
+    public void selectAllCheckBoxOnReportOption() throws  Exception{
+        String checkboxSelected = applyWait.waitForElementToBeClickable(selectAllCheckboxesOptionOnReportPopup,30).getAttribute("aria-checked");
+         if(checkboxSelected.equals("false")){
+             applyWait.waitForElementToBeClickable(selectAllCheckboxesOptionOnReportPopup,30).click();
+             Thread.sleep(3000);
+            }
+    }
+
+    public void verifyDownloadSOPWordFormatReport() throws Exception {
+        String name;
+        Thread.sleep(3000);
+        clickOnMyProcessesOption();
+        Thread.sleep(3000);
+        for (int i = 0; i < processeslist.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (name.equals(constants.searchStringForInProgressProcess)) {
+                applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
+                test.log(Status.INFO, "Click Particular In-Progress Process");
+                break;
+            }
+        }
+        Thread.sleep(2000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        test.log(Status.INFO, "User click On More option");
+        applyWait.waitForElementToBeClickable(sopReportBtn,30).click();
+        Thread.sleep(3000);
+        selectAllCheckBoxOnReportOption();
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(wordTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(10000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,90).click();
+        Thread.sleep(10000);
+        Assert.assertTrue(isFileDownloaded_Ext(baseClass.DownloadFilepath, "SOP.docx"), "Failed to download Expected document");
+        Thread.sleep(9000);
+    }
+
+    public void verifyDownloadSOPFormatPDFReport() throws Exception {
+        String name;
+        Thread.sleep(3000);
+        clickOnMyProcessesOption();
+        Thread.sleep(3000);
+        for (int i = 0; i < processeslist.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (name.equals(constants.searchStringForInProgressProcess)) {
+                applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
+                test.log(Status.INFO, "Click Particular In-Progress Process");
+                break;
+            }
+        }
+        Thread.sleep(2000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        test.log(Status.INFO, "User click On More option");
+        applyWait.waitForElementToBeClickable(sopReportBtn,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(pdfTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(10000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,90).click();
+        Thread.sleep(9000);
+        Assert.assertTrue(isFileDownloaded_Ext(baseClass.DownloadFilepath, "SOP.pdf"), "Failed to download Expected document");
+        Thread.sleep(9000);
+    }
+
+    public void verifyBprPdfReportDownloaded() throws Exception{
+        String name;
+        Thread.sleep(3000);
+        clickOnMyProcessesOption();
+        Thread.sleep(3000);
+        for (int i = 0; i < processeslist.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (name.equals(constants.searchStringForInProgressProcess)) {
+                applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
+                test.log(Status.INFO, "Click Particular In-Progress Process");
+                break;
+            }
+        }
+        Thread.sleep(2000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        test.log(Status.INFO, "User click On More option");
+        applyWait.waitForElementToBeClickable(bprReportBtn,30).click();
+        Thread.sleep(3000);
+        selectAllCheckBoxOnReportOption();
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(pdfTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(10000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,90).click();
+        Thread.sleep(9000);
+        Assert.assertTrue(isFileDownloaded_Ext(baseClass.DownloadFilepath, "BPR.pdf"), "Failed to download Expected document");
+        Thread.sleep(9000);
+    }
+
+    public void verifyBprReprtDownloadInWordFormat() throws Exception{
+        String name;
+        Thread.sleep(3000);
+        clickOnMyProcessesOption();
+        Thread.sleep(3000);
+        for (int i = 0; i < processeslist.size(); i++) {
+            name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (name.equals(constants.searchStringForInProgressProcess)) {
+                applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
+                test.log(Status.INFO, "Click Particular In-Progress Process");
+                break;
+            }
+        }
+        Thread.sleep(2000);
+        applyWait.waitForElementToBeClickable(moreOptionBtn, 30).click();
+        test.log(Status.INFO, "User click On More option");
+        applyWait.waitForElementToBeClickable(bprReportBtn,30).click();
+        Thread.sleep(9000);
+        selectAllCheckBoxOnReportOption();
+        applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
+        applyWait.waitForElementToBeClickable(wordTypeOptionOfDownloadAsDrpdwn,30).click();
+        Thread.sleep(10000);
+        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,90).click();
+        Thread.sleep(20000);
+        Assert.assertTrue(isFileDownloaded_Ext(baseClass.DownloadFilepath, "BPR.docx"), "Failed to download Expected document");
+        Thread.sleep(9000);
     }
 }

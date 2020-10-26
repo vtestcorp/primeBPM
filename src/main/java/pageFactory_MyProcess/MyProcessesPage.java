@@ -377,4 +377,5 @@ public class MyProcessesPage {
         Thread.sleep(4000);
         verify.assertEquals(toastMsgs,constants.sendApprovalMsg);
     }
+
 }

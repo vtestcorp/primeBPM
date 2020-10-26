@@ -15,15 +15,19 @@
     <test name="Designer-Create Framework/Library">
         <parameter name="browserType" value="chrome"/>
         <classes>
-            <class name="Designer.VerifyNewFrameworkCreatedOnDesignerPage"></class>
-            <class name="Designer.VerifyCheckinCheckoutOfFrameworkLibararyProcess"></class>
-            <class name="Designer.VerifyRapidProcessMappingDesign"></class>
-            <class name="Designer.VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode"></class>
-            <class name="Designer.VerifySendForApprovalForSerialCycleProcessMap"></class>
-            <class name="Designer.VerifySendApprovalRequestOfProcessMapParallelCycle"></class>
-            <class name="Designer.VerifyApprovalProcessMap"></class>
-            <class name="Designer.VerifyRejectApprovalOfProcessMap"></class>
-            <class name="Designer.VerifyPublishedProcessMap"></class>
+<!--            <class name="Designer.VerifyNewFrameworkCreatedOnDesignerPage"></class>-->
+<!--            <class name="Designer.VerifyCheckinCheckoutOfFrameworkLibararyProcess"></class>-->
+<!--            <class name="Designer.VerifyRapidProcessMappingDesign"></class>-->
+<!--            <class name="Designer.VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode"></class>-->
+<!--            <class name="Designer.VerifySendForApprovalForSerialCycleProcessMap"></class>-->
+<!--            <class name="Designer.VerifySendApprovalRequestOfProcessMapParallelCycle"></class>-->
+<!--            <class name="Designer.VerifyApprovalProcessMap"></class>-->
+<!--            <class name="Designer.VerifyRejectApprovalOfProcessMap"></class>-->
+<!--            <class name="Designer.VerifyPublishedProcessMap"></class>-->
+<!--            <class name="Designer.VerifyDownloadSOPWordFormatReport"></class>-->
+<!--            <class name="Designer.VerifyDownloadSopReportPdfFormat"></class>-->
+<!--            <class name="Designer.VerifyDownloadBprReportPdfFormat"></class>-->
+            <class name="Designer.VerifyDownloadBprReportWordFormat"></class>
         </classes>
     </test>
 </suite>
