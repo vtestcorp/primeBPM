@@ -7,12 +7,12 @@ import org.testng.annotations.Test;
 import pageFactory_Analyser.AnalyserPage;
 import pageFactory_Designer.loginPage;
 
-public class VerifyValueAnalysis extends baseClass{
+public class PerformCostAnalysis extends baseClass {
 
     @Test(alwaysRun = true)
-    public void verifyValueAnalysis() throws  Exception{
-        test = extent.createTest("Perform Value Analysis",
-                "User should be able to perform Value Analysis");
+    public void performCostAnalysis() throws  Exception{
+        test = extent.createTest("Perform Cost Analysis",
+                "User should be able to perform Cost Analysis");
         loginPage login = new loginPage(driver, test);
         ExcelUtils read = new ExcelUtils();
         defineConstants defineConstant = new defineConstants();
@@ -21,7 +21,7 @@ public class VerifyValueAnalysis extends baseClass{
 
         login.loginWithValid_User();
         Thread.sleep(3000);
-        analyserPage.verifyValueAnalysis();
+        analyserPage.verifyCostAnalysis();
         Thread.sleep(3000);
     }
 }
