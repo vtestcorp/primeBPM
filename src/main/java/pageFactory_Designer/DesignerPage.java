@@ -172,7 +172,7 @@ public class DesignerPage {
     @FindBy(xpath = "//textarea[@ng-model='actionForm.description']")
     private WebElement descriptionFieldOnFromAtProcessMap;
 
-    @FindBy(xpath = "//*[@id=\"taskList\"]/tr[2]/td[1]/div")
+    @FindBy(xpath = "//tr[not(contains(@id,'templateTaskRow'))]//div[@class='taskNames']")
     private WebElement taskNameField;
 
     @FindBy(xpath = "//tr[not(contains(@id,'templateTaskRow'))]//select[@class='roleName']")

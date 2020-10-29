@@ -8,7 +8,7 @@
     <test name="check systemAdmin">
         <parameter name="browserType" value="chrome"/>
         <classes>
-           <class name="Admin.VerifyAddNewRoleInAdministration"/>
+            <class name="Admin.VerifyAddNewRoleInAdministration"/>
             <class name="Admin.VerifyRoleGetUploadedSuccessfully"/>
         </classes>
     </test>
@@ -36,6 +36,7 @@
             <class name="Analyser.PerformValueAnalysis"></class>
             <class name="Analyser.performTimeAnalysis"></class>
             <class name="Analyser.PerformCostAnalysis"></class>
+            <class name="Analyser.PerformSimulationAnalysis"></class>
         </classes>
     </test>
 </suite>

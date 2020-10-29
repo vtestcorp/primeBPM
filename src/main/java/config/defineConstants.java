@@ -61,7 +61,7 @@ public class defineConstants {
     public static final String checkInSuccessMsg = "Success\n" + "Check in successful.";
     public static final String checkOutsuccessMsg = "Success\n" + "Check out successful.";
     public static final String savedProcedureMsg = "Success\n" + "Procedure saved successfully";
-    public static final String searchStringForInProgressProcess = "erfefer";
+    public static final String searchStringForInProgressProcess = "costProcess";
     public static final String searchProcessForSendForApprovalSerialTest = "erfefer";
     public static final String searchProcessForSendForApprovalParallelTest = "erfefer";
 
