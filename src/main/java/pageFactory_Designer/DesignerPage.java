@@ -70,8 +70,8 @@ public class DesignerPage {
     @FindBy(xpath = "//div[@title='Delete']")
     private WebElement deleteOption;
 
-    @FindBy(xpath = "//*[name()='svg']//*[name()='g' and @class='layer-base']")
-    private WebElement dataElement;
+    @FindBy(xpath = "//*[name()='svg']//*[name()='g' and contains(@data-element-id,'Task')]")
+    private WebElement processMapElement;
 
     @FindBy(xpath = "//md-icon[@md-svg-src='dist/img/icons/bpmn/save.svg']")
     private WebElement saveBtn;
@@ -160,7 +160,7 @@ public class DesignerPage {
     @FindBy(xpath = "//md-switch[@ng-model='switchDesignButton']")
     private WebElement moveToDesignView;
 
-    @FindBy(xpath = "//span[contains(text(),'Submit')]")
+    @FindBy(xpath = "//button//span[contains(text(),'Submit')]")
     private WebElement submitBtnOnFormOfProcessMap;
 
     @FindBy(xpath = "//input[@ng-model='actionForm.Cost']")
@@ -287,8 +287,7 @@ public class DesignerPage {
         test.log(Status.INFO, "User Click on new framework button");
     }
 
-    public  void fillDetailsToCreateNewFramework(){
-        String frameworkName = "Test22102020OCT";
+    public  void fillDetailsToCreateNewFramework(String frameworkName){
         applyWait.waitForElementToBeClickable(nameInputField, 50).sendKeys(frameworkName);
         test.log(Status.INFO, "User provide name for new framework");
     }
@@ -298,9 +297,9 @@ public class DesignerPage {
         test.log(Status.INFO, "User click on Submit button");
     }
 
-    public void clickOnLibraryElement(){
+    public void clickOnProcessMapElement(){
         Actions actions = new Actions(driver);
-        actions.click(dataElement).perform();
+        actions.click(processMapElement).perform();
         test.log(Status.INFO, "User click on library element");
     }
 
@@ -314,7 +313,7 @@ public class DesignerPage {
         test.log(Status.INFO, "User click on Save button to save framework");
     }
 
-    public void createLibrary() throws Exception{
+    public void createLibrary(String processName) throws Exception{
         Actions actions = new Actions(driver);
         applyWait.waitForElementToBeClickable(addProcessIcon, 90).click();
         test.log(Status.INFO, "User click on Add Process icon");
@@ -323,7 +322,7 @@ public class DesignerPage {
         actions.release(draggableElement).perform();
         test.log(Status.INFO, "User drag and drop process element");
 
-        applyWait.waitForElementToBeClickable(processElement,30).sendKeys(constants.parentProcess);
+        applyWait.waitForElementToBeClickable(processElement,30).sendKeys(processName);
         test.log(Status.INFO, "User type name of Parent process element");
         Thread.sleep(3000);
 
@@ -355,21 +354,21 @@ public class DesignerPage {
         verify.assertEquals(constants.frameworkSavedSuccessMsg,toastMsgs);
     }
 
-    public void verifyNewFrameworkCreatedSuccessfully()throws Exception {
+    public void verifyNewFrameworkCreatedSuccessfully(String frameworkName,String processName)throws Exception {
         clickOnDesignerTab();
         clickOnNewFrameworkBtn();
-        fillDetailsToCreateNewFramework();
+        fillDetailsToCreateNewFramework(frameworkName);
         clickOnSubmitBtn();
         Thread.sleep(3000);
         clickOnSaveBtn();
         Thread.sleep(3000);
         verify.assertEquals(constants.frameworkSavedSuccessMsg,toastMsgs);
         Thread.sleep(8000);
-        clickOnLibraryElement();
+        clickOnProcessMapElement();
         Thread.sleep(3000);
         clickOnGoToLibraryOption();
         Thread.sleep(3000);
-        createLibrary();
+        createLibrary(processName);
     }
 
     public void clickOnCheckinBtn() throws InterruptedException {
@@ -408,7 +407,7 @@ public class DesignerPage {
 
         applyWait.waitForElementToBeClickable(yesConfirmationPopup,30).click();
         test.log(Status.INFO,"User click on Yes button at confirmation box");
-        Thread.sleep(4000);
+        Thread.sleep(3000);
         verify.assertEquals(constants.checkInSuccessMsg,toastMsgs);
     }
 
@@ -454,7 +453,7 @@ public class DesignerPage {
         verify.assertEquals(constants.processMapSavedSuccessMsg,toastMsgs);
     }
 
-    public void checkinCheckoutFramework() throws Exception{
+    public void checkinCheckoutFramework(String framework) throws Exception{
         Actions actions = new Actions(driver);
         clickOnDesignerTab();
         Thread.sleep(3000);
@@ -465,7 +464,7 @@ public class DesignerPage {
         System.out.println(frameworkName1.size());
         for (int i = 0; i < frameworkName1.size(); i++) {
             frameworkName = applyWait.waitForElementToBeClickable(frameworkName1.get(i), 30).getText();
-            if (frameworkName.equals(constants.searchString.toUpperCase())) {
+            if (frameworkName.equals(framework.toUpperCase())) {
                 applyWait.waitForElementToBeClickable(frameworkName1.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular Framework");
                 break;
@@ -482,7 +481,7 @@ public class DesignerPage {
 
     public void checkinCheckoutLibrary() throws Exception{
         Thread.sleep(3000);
-        clickOnLibraryElement();
+        clickOnProcessMapElement();
         clickOnGoToLibraryOption();
         Thread.sleep(9000);
         clickOnCheckinBtn();
@@ -505,8 +504,6 @@ public class DesignerPage {
 
     public void checkinCheckoutProcess() throws Exception {
         clickOnGoToProcessMap();
-        setDesignDrawingProcessMap();
-        createProcessMap();
         clickOnCheckinBtnOnProcessMap();
         clickOnCheckoutBtnOnProcessMap();
     }
@@ -516,10 +513,11 @@ public class DesignerPage {
         test.log(Status.INFO,"User click + sign on Organisation Unit option");
     }
 
-    public void fillFormForAddOrganisationAtProcessMap(){
+    public void fillFormForAddOrganisationAtProcessMap() throws Exception{
+        Actions actions = new Actions(driver);
         applyWait.waitForElementToBeClickable(nameFieldOnFormOnProcessMap,30).sendKeys("Organisation" + produce.generateRandomString());
         test.log(Status.INFO,"User provide name of organisation at form");
-
+        Thread.sleep(9000);
         applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
         test.log(Status.INFO,"User click on submit button");
     }
@@ -612,7 +610,7 @@ public class DesignerPage {
         test.log(Status.INFO,"User click on Yes button on confirmation popup");
     }
 
-    public void designingOfProcessMapUsingRapidDesignProcess()throws Exception{
+    public void designingOfProcessMapUsingRapidDesignProcess(String framework)throws Exception{
         String name;
         Thread.sleep(3000);
         clickOnDesignerTab();
@@ -623,14 +621,14 @@ public class DesignerPage {
         System.out.println(frameworkName1.size());
         for (int i = 0; i < frameworkName1.size(); i++) {
             name = applyWait.waitForElementToBeClickable(frameworkName1.get(i), 30).getText();
-            if (name.equals(constants.searchStringForDrawingDesignMap.toUpperCase())) {
+            if (name.equals(framework.toUpperCase())) {
                 applyWait.waitForElementToBeClickable(frameworkName1.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular Process");
                 break;
             }
         }
         Thread.sleep(3000);
-        clickOnLibraryElement();
+        clickOnProcessMapElement();
         Thread.sleep(3000);
         clickOnGoToLibraryOption();
         Thread.sleep(3000);
@@ -653,17 +651,16 @@ public class DesignerPage {
         verify.assertEquals(constants.processMapSavedSuccessMsg,toastMsgs);
     }
 
-    public void approveProcessMap() throws Exception {
+    public void approveProcessMap(String processName) throws Exception {
         applyWait.waitForElementToBeClickable(approvalTab,30).click();
         test.log(Status.INFO,"User click on 'Process Pending for Approval' option on TOP menu bar");
         String name;
         Thread.sleep(3000);
         Actions actions =new Actions(driver);
         Thread.sleep(5000);
-        System.out.println(approveProcessList.size()+"&&&&&&&&&&");
         for (int i = 0; i < approveProcessList.size(); i++) {
             name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
-            if (name.equals(constants.searchProcessForApproveProcessMap)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular Process");
                 break;
@@ -747,27 +744,26 @@ public class DesignerPage {
         applyWait.waitForElementToBeClickable(taskInformationCheckboxOnApprovePopup,30).click();
         applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
         test.log(Status.INFO,"User check ALL 3 boxes and hit SUBMIT On the item selection page");
-        Thread.sleep(9000);
+        Thread.sleep(8000);
         verify.assertEquals(constants.ProcessApprovedMsg,toastMsgs.getText().toString());
         Thread.sleep(3000);
         for (int i = 0; i < approveProcessList.size(); i++) {
             name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
-            verify.assertNotSame(constants.searchProcessForApproveProcessMap,name);
+            verify.assertNotSame(processName,name);
         }
 
     }
 
-    public void verifyRejectApproval() throws Exception{
+    public void verifyRejectApproval(String processName) throws Exception{
         applyWait.waitForElementToBeClickable(approvalTabOnDashboard,30).click();
         test.log(Status.INFO,"User click on 'Process Pending for Approval' option on TOP menu bar");
         String name;
         Thread.sleep(3000);
         Actions actions =new Actions(driver);
         Thread.sleep(5000);
-        System.out.println(approveProcessList.size()+"&&&&&&&&&&");
         for (int i = 0; i < approveProcessList.size(); i++) {
             name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
-            if (name.equals(constants.searchProcessForRejectionApproveProcessMap)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular Process");
                 break;
@@ -862,7 +858,7 @@ public class DesignerPage {
         Thread.sleep(3000);
         for (int i = 0; i < approveProcessList.size(); i++) {
             name = applyWait.waitForElementToBeClickable(approveProcessList.get(i), 30).getText();
-            verify.assertNotSame(constants.searchProcessForRejectionApproveProcessMap,name);
+            verify.assertNotSame(processName,name);
         }
     }
 
@@ -900,14 +896,14 @@ public class DesignerPage {
             }
     }
 
-    public void verifyDownloadSOPWordFormatReport() throws Exception {
+    public void verifyDownloadSOPWordFormatReport( String processName) throws Exception {
         String name;
         Thread.sleep(3000);
         clickOnMyProcessesOption();
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchStringForInProgressProcess)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -928,14 +924,14 @@ public class DesignerPage {
         Thread.sleep(9000);
     }
 
-    public void verifyDownloadSOPFormatPDFReport() throws Exception {
+    public void verifyDownloadSOPFormatPDFReport(String processName) throws Exception {
         String name;
         Thread.sleep(3000);
         clickOnMyProcessesOption();
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchStringForInProgressProcess)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -955,14 +951,14 @@ public class DesignerPage {
         Thread.sleep(9000);
     }
 
-    public void verifyBprPdfReportDownloaded() throws Exception{
+    public void verifyBprPdfReportDownloaded(String processName) throws Exception{
         String name;
         Thread.sleep(3000);
         clickOnMyProcessesOption();
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchStringForInProgressProcess)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -983,14 +979,14 @@ public class DesignerPage {
         Thread.sleep(9000);
     }
 
-    public void verifyBprReprtDownloadInWordFormat() throws Exception{
+    public void verifyBprReprtDownloadInWordFormat(String processName) throws Exception{
         String name;
         Thread.sleep(3000);
         clickOnMyProcessesOption();
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchStringForInProgressProcess)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;

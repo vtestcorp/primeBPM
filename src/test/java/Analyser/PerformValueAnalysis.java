@@ -3,6 +3,7 @@ package Analyser;
 import base.baseClass;
 import config.defineConstants;
 import helperMethods.ExcelUtils;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageFactory_Analyser.AnalyserPage;
 import pageFactory_Designer.loginPage;
@@ -10,7 +11,8 @@ import pageFactory_Designer.loginPage;
 public class PerformValueAnalysis extends baseClass{
 
     @Test(alwaysRun = true)
-    public void verifyValueAnalysis() throws  Exception{
+    @Parameters("processName")
+    public void verifyValueAnalysis(String processName) throws  Exception{
         test = extent.createTest("Perform Value Analysis",
                 "User should be able to perform Value Analysis");
         loginPage login = new loginPage(driver, test);
@@ -21,7 +23,7 @@ public class PerformValueAnalysis extends baseClass{
 
         login.loginWithValid_User();
         Thread.sleep(3000);
-        analyserPage.verifyValueAnalysis();
+        analyserPage.verifyValueAnalysis(processName);
         Thread.sleep(3000);
     }
 }

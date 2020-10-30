@@ -4,6 +4,7 @@ import base.baseClass;
 
 import config.defineConstants;
 import helperMethods.ExcelUtils;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageFactory_Designer.DesignerPage;
 import pageFactory_Designer.loginPage;
@@ -12,7 +13,8 @@ import pageFactory_MyProcess.MyProcessesPage;
 public class VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode extends baseClass {
 
     @Test(alwaysRun = true)
-    public void verifyAddOrEditProcedureInCheckedInAndCheckedOutMode() throws Exception{
+    @Parameters("processName")
+    public void verifyAddOrEditProcedureInCheckedInAndCheckedOutMode(String processName) throws Exception{
         test = extent.createTest("Add/Edit Procedures (Under a Task)",
                 "User should be able to ADD or EDIT Procedures in Checked Out (editable) mode and VIEW it in Checked In (Locked) mode");
 
@@ -24,6 +26,6 @@ public class VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode extends baseCl
 
         login.loginWithValid_User();
         Thread.sleep(3000);
-        myProcessesPage.addOrEditProcedureInCheckedInAndCheckedOutMode();
+        myProcessesPage.addOrEditProcedureInCheckedInAndCheckedOutMode(processName);
     }
 }

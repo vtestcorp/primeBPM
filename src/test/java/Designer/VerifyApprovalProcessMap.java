@@ -3,6 +3,7 @@ package Designer;
 import base.baseClass;
 import config.defineConstants;
 import helperMethods.ExcelUtils;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageFactory_Designer.DesignerPage;
 import pageFactory_Designer.loginPage;
@@ -11,7 +12,8 @@ import pageFactory_MyProcess.MyProcessesPage;
 public class VerifyApprovalProcessMap extends baseClass {
 
     @Test(alwaysRun = true)
-    public void VerifyApprovalProcessMap() throws Exception {
+    @Parameters("processName")
+    public void VerifyApprovalProcessMap(String processName) throws Exception {
         test = extent.createTest("Approve Process Map",
                 "User should be able to Approve Process Map");
 
@@ -23,11 +25,11 @@ public class VerifyApprovalProcessMap extends baseClass {
 
         login.loginAsProcessApproval_User();
         Thread.sleep(3000);
-        designerPage.approveProcessMap();
+        designerPage.approveProcessMap(processName);
         login.logoutFromApp();
         Thread.sleep(3000);
         login.loginAsSecondProcessApproval_User();
-        designerPage.approveProcessMap();
+        designerPage.approveProcessMap(processName);
         Thread.sleep(3000);
     }
 

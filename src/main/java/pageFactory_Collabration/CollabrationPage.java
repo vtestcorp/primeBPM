@@ -77,7 +77,7 @@ public class CollabrationPage {
     public WebElement myProcessTab;
 
     //Start Of Collaboration Page method
-    public void verifyPublishProcessMap() throws  Exception {
+    public void verifyPublishProcessMap(String framework, String processName) throws  Exception {
         Actions actions = new Actions(driver);
         applyWait.waitForElementToBeClickable(myProcessTab,30).click();
         test.log(Status.INFO,"User click on MY PROCESSES tab");
@@ -85,7 +85,7 @@ public class CollabrationPage {
         String processNameOnMyProcess;
         for (int i = 0; i < processeslist.size(); i++) {
             processNameOnMyProcess = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (processNameOnMyProcess.equals(constants.searchApproveProcess)) {
+            if (processNameOnMyProcess.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "User click on an APPROVED process map");
                 break;
@@ -116,7 +116,7 @@ public class CollabrationPage {
         System.out.println(frameworkListOnCollaboration.size());
         for (int i = 0; i < frameworkListOnCollaboration.size(); i++) {
             processNameOnCollaboration = applyWait.waitForElementToBeClickable(frameworkListOnCollaboration.get(i), 30).getText();
-            if (processNameOnCollaboration.equals(constants.searchApproveFramework.toUpperCase())) {
+            if (processNameOnCollaboration.equals(framework.toUpperCase())) {
                 applyWait.waitForElementToBeClickable(frameworkListOnCollaboration.get(i), 30).click();
                 test.log(Status.INFO, "Click on process map recently published through double clicking on Framework/Library/Process map selections");
                 break;

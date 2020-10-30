@@ -3,6 +3,7 @@ package Analyser;
 import base.baseClass;
 import config.defineConstants;
 import helperMethods.ExcelUtils;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageFactory_Analyser.AnalyserPage;
 import pageFactory_Designer.loginPage;
@@ -10,7 +11,8 @@ import pageFactory_Designer.loginPage;
 public class PerformCostAnalysis extends baseClass {
 
     @Test(alwaysRun = true)
-    public void performCostAnalysis() throws  Exception{
+    @Parameters("processName")
+    public void performCostAnalysis(String processName) throws  Exception{
         test = extent.createTest("Perform Cost Analysis",
                 "User should be able to perform Cost Analysis");
         loginPage login = new loginPage(driver, test);
@@ -21,7 +23,7 @@ public class PerformCostAnalysis extends baseClass {
 
         login.loginWithValid_User();
         Thread.sleep(3000);
-        analyserPage.verifyCostAnalysis();
+        analyserPage.verifyCostAnalysis(processName);
         Thread.sleep(3000);
     }
 }

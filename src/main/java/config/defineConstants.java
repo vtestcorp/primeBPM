@@ -46,11 +46,7 @@ public class defineConstants {
     public static final String newRoleUploadedSuccessMsg = "Role repository excel uploaded successfully.";
 
     //Designer Page Data for New Framework
-//    public final String frameworkName="HS CORPORATE 12" + produce.generateRandomString();
-    public static final String searchString = "TEST22102020OCT";
-    public static final String searchStringForDrawingDesignMap = "TEST22102020OCT";
-
-    public final String parentProcess = "Test1" + produce.generateRandomString();
+    public final String framework = "framework" + produce.generateRandomString();
     public final String childProcess1 = "Test2" + produce.generateRandomString();
     public final String childProcess2 = "Test3" + produce.generateRandomString();
 
@@ -62,11 +58,6 @@ public class defineConstants {
     public static final String checkOutsuccessMsg = "Success\n" + "Check out successful.";
     public static final String savedProcedureMsg = "Success\n" + "Procedure saved successfully";
     public static final String searchStringForInProgressProcess = "costProcess";
-    public static final String searchProcessForSendForApprovalSerialTest = "erfefer";
-    public static final String searchProcessForSendForApprovalParallelTest = "erfefer";
-
-    public static final String searchProcessForApproveProcessMap = "Process564";
-    public static final String searchProcessForRejectionApproveProcessMap = "Process466";
     public static final String userAssignedMsg= "Success\n" + "Users assigned successfully.";
     public static final String sendApprovalMsg = "Success\n"+"Process sent for approval successfully.";
     public static final String processRejectApprovalMsg  = "Success\n" + "The Process is rejected";

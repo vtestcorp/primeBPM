@@ -3,6 +3,7 @@ package Designer;
 import base.baseClass;
 import config.defineConstants;
 import helperMethods.ExcelUtils;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageFactory_Designer.DesignerPage;
 import pageFactory_Designer.loginPage;
@@ -11,7 +12,8 @@ import pageFactory_MyProcess.MyProcessesPage;
 public class VerifySendForApprovalForSerialCycleProcessMap extends  baseClass{
 
     @Test(alwaysRun = true)
-    public void verifySendApprovalRequest()throws Exception {
+    @Parameters("processName")
+    public void verifySendApprovalRequest(String processName)throws Exception {
         test = extent.createTest("Send Process for Approval (Serial Cycle)",
                 "User should be able to send process for Approval");
 
@@ -23,7 +25,7 @@ public class VerifySendForApprovalForSerialCycleProcessMap extends  baseClass{
 
         login.loginWithValid_User();
         Thread.sleep(3000);
-        myProcessesPage.verifySendApprovalRequestOfProcessMapSerialCycle();
+        myProcessesPage.verifySendApprovalRequestOfProcessMapSerialCycle(processName);
         Thread.sleep(3000);
     }
 }

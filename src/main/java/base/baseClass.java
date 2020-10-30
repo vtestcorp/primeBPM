@@ -286,18 +286,18 @@ public class baseClass {
     @AfterClass
     public void tearDown()  {
         driver.quit();
-    }
-
-
-    @AfterSuite
-    public void afterSuite(ITestContext context) {
-        printSuiteResults(context.getSuite());
         File dir = new File(baseClass.DownloadFilepath);
         File[] files = dir.listFiles();
         for (File file : files) {
             System.out.println("Deleted filename :"+ file.getName());
             file.delete();
         }
+    }
+
+
+    @AfterSuite
+    public void afterSuite(ITestContext context) {
+        printSuiteResults(context.getSuite());
     }
 
     private void printSuiteResults(ISuite suite) {

@@ -2,6 +2,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="SystemAdmin">
+    <parameter name="framework" value= "testFramework93"/>
+    <parameter name="processName" value="testProcess93"></parameter>
     <listeners>
         <listener class-name="listeners.AnnotationTransformer"/>
     </listeners>
@@ -16,8 +18,8 @@
         <parameter name="browserType" value="chrome"/>
         <classes>
             <class name="Designer.VerifyNewFrameworkCreatedOnDesignerPage"></class>
-            <class name="Designer.VerifyCheckinCheckoutOfFrameworkLibararyProcess"></class>
             <class name="Designer.VerifyRapidProcessMappingDesign"></class>
+            <class name="Designer.VerifyCheckinCheckoutOfFrameworkLibraryProcess"></class>
             <class name="Designer.VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode"></class>
             <class name="Designer.VerifySendForApprovalForSerialCycleProcessMap"></class>
             <class name="Designer.VerifySendApprovalRequestOfProcessMapParallelCycle"></class>

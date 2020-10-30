@@ -6,7 +6,6 @@ import config.defineConstants;
 import helperMethods.dataGenerator;
 import helperMethods.screenshots;
 import helperMethods.waitTypes;
-import java.awt.Robot;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -17,7 +16,6 @@ import org.testng.asserts.SoftAssert;
 import pageFactory_Common.CommonLocators;
 import pageFactory_Designer.DesignerPage;
 
-import java.awt.event.KeyEvent;
 import java.util.List;
 
 public class MyProcessesPage {
@@ -130,7 +128,7 @@ public class MyProcessesPage {
     }
 
     public void clickOnCheckInBtn() {
-        boolean visibilityOfCheckInBtn = applyWait.waitForElementToBeClickable(checkinBtn, 30).isDisplayed();
+        boolean visibilityOfCheckInBtn =checkinBtn.isDisplayed();
         if (visibilityOfCheckInBtn == true) {
             applyWait.waitForElementToBeClickable(checkinBtn, 30).click();
             test.log(Status.INFO, "User click on Check In button on Process Map page");
@@ -165,20 +163,20 @@ public class MyProcessesPage {
         Thread.sleep(3000);
         builder.sendKeys(Keys.ENTER).perform();
         Thread.sleep(3000);
-        Robot actions = new Robot();
-        actions.keyPress(KeyEvent.VK_PRINTSCREEN);
-        actions.keyRelease(KeyEvent.VK_PRINTSCREEN);
-        Thread.sleep(5000);
-        actions.keyPress(KeyEvent.VK_CONTROL);
-        actions.keyPress(KeyEvent.VK_A);
-        Thread.sleep(5000);
-        actions.keyPress(KeyEvent.VK_CONTROL);
-        actions.keyPress(KeyEvent.VK_C);
-        Thread.sleep(5000);
-        actions.keyPress(KeyEvent.VK_CONTROL);
-        actions.keyPress(KeyEvent.VK_V);
-        actions.keyRelease(KeyEvent.VK_CONTROL);
-        Thread.sleep(7000);
+//        Robot actions = new Robot();
+//        actions.keyPress(KeyEvent.VK_PRINTSCREEN);
+//        actions.keyRelease(KeyEvent.VK_PRINTSCREEN);
+//        Thread.sleep(5000);
+//        actions.keyPress(KeyEvent.VK_CONTROL);
+//        actions.keyPress(KeyEvent.VK_A);
+//        Thread.sleep(5000);
+//        actions.keyPress(KeyEvent.VK_CONTROL);
+//        actions.keyPress(KeyEvent.VK_C);
+//        Thread.sleep(5000);
+//        actions.keyPress(KeyEvent.VK_CONTROL);
+//        actions.keyPress(KeyEvent.VK_V);
+//        actions.keyRelease(KeyEvent.VK_CONTROL);
+//        Thread.sleep(7000);
         test.log(Status.INFO, "User takes screenshot and paste to procedure text area");
     }
 
@@ -207,14 +205,14 @@ public class MyProcessesPage {
         verify.assertEquals(constants.checkOutsuccessMsg, commonLocators.toastMsgs);
     }
 
-    public void addOrEditProcedureInCheckedInAndCheckedOutMode() throws Exception {
+    public void addOrEditProcedureInCheckedInAndCheckedOutMode(String processName) throws Exception {
         String name;
         Thread.sleep(3000);
         clickOnMyProcessesOption();
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchStringForInProgressProcess)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -262,7 +260,7 @@ public class MyProcessesPage {
         test.log(Status.INFO,"User click on back button");
     }
 
-    public void verifySendApprovalRequestOfProcessMapSerialCycle() throws Exception {
+    public void verifySendApprovalRequestOfProcessMapSerialCycle(String processName) throws Exception {
         DesignerPage designerPage = new DesignerPage(driver,test);
         String name;
         Thread.sleep(3000);
@@ -270,7 +268,7 @@ public class MyProcessesPage {
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchProcessForSendForApprovalSerialTest)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -279,10 +277,10 @@ public class MyProcessesPage {
         Thread.sleep(3000);
         clickOnBackBtn();
         Thread.sleep(3000);
-        designerPage.clickOnLibraryElement();
+        designerPage.clickOnProcessMapElement();
         Thread.sleep(3000);
         setAssignUserForLibraryElement();
-        Thread.sleep(3000);
+        Thread.sleep(9000);
         Select selectUserDropDown = new Select(selectUserFromProcessUserPopup);
         selectUserDropDown.selectByVisibleText(constants.processApprover);
         Thread.sleep(3000);
@@ -300,8 +298,9 @@ public class MyProcessesPage {
         test.log(Status.INFO,"User click on Go To Process Map button");
         Thread.sleep(3000);
         clickOnCheckInBtn();
-        Thread.sleep(3000);
+        Thread.sleep(9000);
         clickOnMoreOptionBtn();
+        Thread.sleep(3000);
         clickOnSendForApprovalBtn();
         Thread.sleep(3000);
         selectUserDropDown.selectByVisibleText(constants.processApprover);
@@ -317,7 +316,7 @@ public class MyProcessesPage {
         verify.assertEquals(toastMsgs,constants.sendApprovalMsg);
     }
 
-    public void verifySendApprovalRequestOfProcessMapParallelCycle() throws Exception {
+    public void verifySendApprovalRequestOfProcessMapParallelCycle(String processName) throws Exception {
         DesignerPage designerPage = new DesignerPage(driver,test);
         String name;
         Thread.sleep(3000);
@@ -325,7 +324,7 @@ public class MyProcessesPage {
         Thread.sleep(3000);
         for (int i = 0; i < processeslist.size(); i++) {
             name = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (name.equals(constants.searchProcessForSendForApprovalParallelTest)) {
+            if (name.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -334,10 +333,10 @@ public class MyProcessesPage {
         Thread.sleep(3000);
         clickOnBackBtn();
         Thread.sleep(3000);
-        designerPage.clickOnLibraryElement();
+        designerPage.clickOnProcessMapElement();
         Thread.sleep(3000);
         setAssignUserForLibraryElement();
-        Thread.sleep(3000);
+        Thread.sleep(5000);
         Select selectUserDropDown = new Select(selectUserFromProcessUserPopup);
         selectUserDropDown.selectByVisibleText(constants.processApprover);
         Thread.sleep(3000);

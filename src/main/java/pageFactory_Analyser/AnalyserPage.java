@@ -231,15 +231,15 @@ public class AnalyserPage {
     private List<WebElement> checkboxesOnGenerateReport;
 
     //Start of Analyser page method
-    public void verifyValueAnalysis() throws  Exception{
+    public void verifyValueAnalysis(String processName) throws  Exception{
         Actions actions = new Actions(driver);
-        String processName;
+        String processOnTab;
         applyWait.waitForElementToBeClickable(myProcessTab, 30).click();
         test.log(Status.INFO, "User click on MY PROCESSES option");
         Thread.sleep(2000);
         for (int i = 0; i < processeslist.size(); i++) {
-            processName = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (processName.equals(constants.searchStringForInProgressProcess)) {
+            processOnTab = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (processOnTab.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -259,15 +259,15 @@ public class AnalyserPage {
         Assert.assertTrue(analysisGraph.isDisplayed());
     }
 
-    public void verifyTimeAnalysis() throws  Exception {
+    public void verifyTimeAnalysis(String processName) throws  Exception {
         Actions actions = new Actions(driver);
-        String processName;
+        String processOnTab;
         applyWait.waitForElementToBeClickable(myProcessTab, 30).click();
         test.log(Status.INFO, "User click on MY PROCESSES option");
         Thread.sleep(2000);
         for (int i = 0; i < processeslist.size(); i++) {
-            processName = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (processName.equals(constants.searchStringForInProgressProcess)) {
+            processOnTab = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (processOnTab.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -297,15 +297,15 @@ public class AnalyserPage {
         test.log(Status.INFO,"Verify if Task analysis (underneath tasks) displays results");
     }
 
-    public void verifyCostAnalysis() throws Exception {
+    public void verifyCostAnalysis(String processName) throws Exception {
         Actions actions = new Actions(driver);
-        String processName;
+        String processOnTab;
         applyWait.waitForElementToBeClickable(myProcessTab, 30).click();
         test.log(Status.INFO, "User click on MY PROCESSES option");
         Thread.sleep(2000);
         for (int i = 0; i < processeslist.size(); i++) {
-            processName = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (processName.equals(constants.searchStringForInProgressProcess)) {
+            processOnTab = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (processOnTab.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;
@@ -364,15 +364,15 @@ public class AnalyserPage {
         }
     }
 
-    public void verifySimulationAnalysis() throws Exception{
+    public void verifySimulationAnalysis(String processName) throws Exception{
         Actions actions = new Actions(driver);
-        String processName;
+        String processOnTab;
         applyWait.waitForElementToBeClickable(myProcessTab, 30).click();
         test.log(Status.INFO, "User click on MY PROCESSES option");
         Thread.sleep(2000);
         for (int i = 0; i < processeslist.size(); i++) {
-            processName = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
-            if (processName.equals(constants.searchStringForInProgressProcess)) {
+            processOnTab = applyWait.waitForElementToBeClickable(processeslist.get(i), 30).getText();
+            if (processOnTab.equals(processName)) {
                 applyWait.waitForElementToBeClickable(processeslist.get(i), 30).click();
                 test.log(Status.INFO, "Click Particular In-Progress Process");
                 break;

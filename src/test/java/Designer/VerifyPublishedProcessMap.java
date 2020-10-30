@@ -2,6 +2,7 @@ package Designer;
 
 import config.defineConstants;
 import helperMethods.ExcelUtils;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pageFactory_Collabration.CollabrationPage;
 import pageFactory_Designer.DesignerPage;
@@ -11,7 +12,8 @@ import base.baseClass;
 public class VerifyPublishedProcessMap extends baseClass{
 
     @Test(alwaysRun = true)
-    public void verifyPublishesProcessMap()throws Exception {
+    @Parameters({"framework","processName"})
+    public void verifyPublishesProcessMap(String framework, String processName)throws Exception {
         test = extent.createTest("Publish Process Map",
                 "User should be able to Publish an APPROVED Process Map");
 
@@ -23,7 +25,7 @@ public class VerifyPublishedProcessMap extends baseClass{
 
         login.loginWithValid_User();
         Thread.sleep(3000);
-        collabrationPage.verifyPublishProcessMap();
+        collabrationPage.verifyPublishProcessMap(framework, processName);
         Thread.sleep(3000);
     }
 }
