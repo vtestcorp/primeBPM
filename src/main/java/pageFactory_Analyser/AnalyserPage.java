@@ -3,18 +3,22 @@ package pageFactory_Analyser;
 import base.baseClass;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.sun.javafx.css.StyleCache;
 import config.defineConstants;
 import helperMethods.dataGenerator;
 import helperMethods.waitTypes;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import java.awt.*;
 import java.io.File;
 import java.util.List;
 
@@ -55,8 +59,11 @@ public class AnalyserPage {
     @FindBy(xpath = "//a[contains(@ng-click,'generateLink')]")
     private List<WebElement> processeslist;
 
-    @FindBy(xpath = "//span[@title='More']")
+    @FindBy(xpath = "//span[contains(@title,'More')]")
     private WebElement moreOptionBtn;
+
+    @FindBy(xpath = "//button[contains(@class,'more')]")
+    private WebElement moreOptionBtnOnSimulation;
 
     @FindBy(xpath = "//md-tab-item//span[contains(text(),'Time Analysis')]")
     private WebElement timeAnalysisTab;
@@ -102,6 +109,9 @@ public class AnalyserPage {
 
     @FindBy(xpath = "//button[contains(@ng-click,'createNewScenario')]")
     private WebElement submitBtnOnFormOfProcessMap;
+
+    @FindBy(xpath = "//button[contains(@ng-click,'MapReportGen')]")
+    private  WebElement submitBtnOnGenerateReport;
 
     @FindBy(xpath = "//*[name()='g' and contains(@data-element-id,'Task')]//*[name()='rect']")
     private WebElement TaskElement;
@@ -184,13 +194,16 @@ public class AnalyserPage {
     @FindBy(xpath = "//button[contains(@ng-click,'answer')]//md-icon[@aria-label='Close dialog']")
     private WebElement closeBtnOnSuggestChangesPopup;
 
-    @FindBy(xpath = "//spna[contains(text(),'Check In')]")
+    @FindBy(xpath = "//button[contains(@ng-click,'callbackClose')]//md-icon[@aria-label='Close dialog']")
+    private WebElement closeBtnOnGenerateReportPopup;
+
+    @FindBy(xpath = "//span[contains(text(),'Check In')]")
     private WebElement checkInBtnOnMoreOptionSection;
 
     @FindBy(xpath = "//button[contains(@class,'Yes')]")
     private WebElement yesBtnOnConfirmationPopup;
 
-    @FindBy(xpath = "//spna[contains(text(),'Check Out')]")
+    @FindBy(xpath = "//span[contains(text(),'Check Out')]")
     private WebElement checkOutBtnOnMoreOptionSection;
 
     @FindBy(xpath = "//button[@title='Generate Report']//span")
@@ -202,6 +215,9 @@ public class AnalyserPage {
     @FindBy(xpath = "//input[@id='version']")
     private WebElement versionAfterPublished;
 
+    @FindBy(xpath = "//span[contains(@ng-show,'params.organisation')]")
+    private WebElement versionNumber;
+
     @FindBy(xpath = "//md-select[@ng-model='mapReport.DownloadType']")
     private WebElement downloadAsTypeDropdown;
 
@@ -211,7 +227,7 @@ public class AnalyserPage {
     @FindBy(xpath = "//md-option//div[contains(text(),'PDF')]")
     private WebElement pdfTypeOptionOfDownloadAsDrpdwn;
 
-    @FindBy(xpath = "////md-checkbox")
+    @FindBy(xpath = "//md-checkbox")
     private List<WebElement> checkboxesOnGenerateReport;
 
     //Start of Analyser page method
@@ -397,9 +413,11 @@ public class AnalyserPage {
         applyWait.waitForElementToBeClickable(delayTimeTabOnSimulationComparison,30).click();
         Assert.assertTrue(asIsProcessGraphForDelayTime.isDisplayed());
         Assert.assertTrue(simulateProcessGraphForDelayTime.isDisplayed());
-        Thread.sleep(3000);
+        Thread.sleep(4000);
         applyWait.waitForElementToBeClickable(costTabSimulateComparison,30).click();
-        Thread.sleep(3000);
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(yesBtnOnConfirmationPopup,30).click();
+        Thread.sleep(9000);
         verify.assertTrue(asIsProcessGraphForCostAnalysis.isDisplayed());
         verify.assertTrue(simulateProcessGraphForCostAnalysis.isDisplayed());
         Thread.sleep(3000);
@@ -409,6 +427,11 @@ public class AnalyserPage {
         verify.assertTrue(simulateProcessGraphForProcessEfficiency.isDisplayed());
         test.log(Status.INFO,"Verify AS-IS and TO-Be comparison in Value, Time, Cost pages");
         applyWait.waitForElementToBeClickable(simulateAnalysisIconOnSimulateComparisonTab,30).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(yesBtnOnConfirmationPopup,30).click();
+        Thread.sleep(9000);
+        applyWait.waitForElementToBeClickable(closeBtnOnGenerateReportPopup,30).click();
+        Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(changesBtn,30).click();
         Thread.sleep(3000);
         test.log(Status.INFO,"User come back to 'Simulate Analysis' page and click on 'Changes' section");
@@ -419,26 +442,33 @@ public class AnalyserPage {
         Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(implementationFieldOnSuggestChangesPopup,30).sendKeys("6");
         Thread.sleep(3000);
+        actions.moveToElement(closeBtnOnSuggestChangesPopup).perform();
         applyWait.waitForElementToBeClickable(addChangesBtn,30).click();
         test.log(Status.INFO,"Provide cost as '2000', Implementation duration as '6' and Duration Unit as 'Weeks' & hit Submit");
         Thread.sleep(3000);
         Assert.assertTrue(saveChanagesTextRow.isDisplayed());
         test.log(Status.INFO,"Verify if change gets registered successfully");
         Thread.sleep(3000);
-        applyWait.waitForElementToBeClickable(moreOptionBtn,30).click();
+        applyWait.waitForElementToBeClickable(closeBtnOnSuggestChangesPopup,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(moreOptionBtnOnSimulation,30).click();
         Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(checkInBtnOnMoreOptionSection,30).click();
         Thread.sleep(2000);
         applyWait.waitForElementToBeClickable(yesBtnOnConfirmationPopup,30).click();
         test.log(Status.INFO,"Click on MORE section and select CHECK IN and click YES");
         Thread.sleep(9000);
-        applyWait.waitForElementToBeClickable(moreOptionBtn,30).click();
+        actions.sendKeys(Keys.ESCAPE).perform();
         Thread.sleep(3000);
-        applyWait.waitForElementToBeClickable(checkInBtnOnMoreOptionSection,30).click();
+        applyWait.waitForElementToBeClickable(moreOptionBtnOnSimulation,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(checkOutBtnOnMoreOptionSection,30).click();
         Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(yesBtnOnConfirmationPopup,30).click();
         test.log(Status.INFO,"Click on MORE section. select CHECK OUT and click YES");
-        applyWait.waitForElementToBeClickable(moreOptionBtn,30).click();
+        Thread.sleep(3000);
+        actions.sendKeys(Keys.ESCAPE).perform();
+        applyWait.waitForElementToBeClickable(moreOptionBtnOnSimulation,30).click();
         Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(generateReportOnAnalysis,30).click();
         Thread.sleep(9000);
@@ -446,29 +476,35 @@ public class AnalyserPage {
         applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
         applyWait.waitForElementToBeClickable(wordTypeOptionOfDownloadAsDrpdwn,30).click();
         Thread.sleep(10000);
-        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,90).click();
+        applyWait.waitForElementToBeClickable(submitBtnOnGenerateReport,90).click();
         Thread.sleep(9000);
         Assert.assertTrue(isFileDownloaded_Ext(baseClass.DownloadFilepath, "SIMULATION.docx"), "Failed to download Expected document");
         Thread.sleep(9000);
-        applyWait.waitForElementToBeClickable(moreOptionBtn,30).click();
+        actions.sendKeys(Keys.ESCAPE).perform();
+        applyWait.waitForElementToBeClickable(moreOptionBtnOnSimulation,30).click();
         Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(generateReportOnAnalysis,30).click();
         Thread.sleep(9000);
-        selectAllCheckboxesOnGenerateReport();
         applyWait.waitForElementToBeClickable(downloadAsTypeDropdown,30).click();
         applyWait.waitForElementToBeClickable(pdfTypeOptionOfDownloadAsDrpdwn,30).click();
         Thread.sleep(3000);
-        applyWait.waitForElementToBeClickable(submitBtnOnFormOfProcessMap,30).click();
+        applyWait.waitForElementToBeClickable(submitBtnOnGenerateReport,30).click();
         Thread.sleep(5000);
         test.log(Status.INFO," Click MORE section again; and select GENERATE REPORT option; select download as WORD and PDF and measure results");
-        Assert.assertTrue(isFileDownloaded_Ext(baseClass.DownloadFilepath, "SIMULATION.docx"), "Failed to download Expected document");
         Thread.sleep(9000);
-        applyWait.waitForElementToBeClickable(moreOptionBtn,30).click();
+        driver.switchTo().defaultContent();
+        Thread.sleep(9000);
+        actions.sendKeys(Keys.ESCAPE).perform();
         Thread.sleep(3000);
-        float versionBeforeConversion = new Float(versionAfterPublished.getText());
+        actions.click(moreOptionBtnOnSimulation).perform();
+        Thread.sleep(3000);
+        String versionBeforeConversion = versionNumber.getText();
         Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(convertToAsIsOption,30).click();
+        Thread.sleep(3000);
+        applyWait.waitForElementToBeClickable(yesBtnOnConfirmationPopup,30).click();
+        Thread.sleep(3000);
         test.log(Status.INFO,"Click on MORE section again and select CONVERT to AS IS and press YES");
-        verify.assertTrue(versionBeforeConversion< new Float(constants.versionChangedNumber));
+        verify.assertTrue(versionBeforeConversion.compareTo(constants.versionChangedNumber) != 0);
     }
 }
