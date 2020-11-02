@@ -275,8 +275,26 @@ public class DesignerPage {
     @FindBy(xpath = "//div[@title='Create System']")
     private WebElement createSystem;
 
-    @FindBy(xpath = "//div[@title='Connect using DataInputAssociation']")
+    @FindBy(xpath = "//div[@class='djs-context-pad open']//div[6]")
     private WebElement arrow;
+
+    @FindBy(xpath = "//*[name()='svg']//*[name()='g' and @class='djs-group'][3]")
+    private WebElement doneStartEvn;
+
+    @FindBy(xpath = "//*[name()='svg']//*[name()='g' and @class='djs-group'][5]")
+    private WebElement doneTask1;
+
+    @FindBy(xpath = "//input[@name='URL']")
+    private WebElement systemURL;
+
+    @FindBy(xpath = "//*[name()='svg']//*[name()='g' and @class='djs-group'][6]")
+    private WebElement doneSystem;
+
+    @FindBy(xpath = "//div[@title='Create Document']")
+    private WebElement document;
+
+    @FindBy(xpath = "//*[name()='svg']//*[name()='g' and @class='djs-group'][7]")
+    private WebElement doneDocument;
     //End Process map//
     @FindBy(xpath = "//div[contains(@id,'toast-container')]")
     public WebElement toastMsgs;
@@ -429,21 +447,21 @@ public class DesignerPage {
         clickOnSubmitBtn();
         Thread.sleep(3000);
         clickOnSaveBtn();
-        Thread.sleep(8000);
+        Thread.sleep(5000);
         clickOnLibraryElement();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         clickOnGoToLibraryOption();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         applyWait.waitForElementToBeClickable(addProcessIcon, 90).click();
         test.log(Status.INFO, "User click on Add Process icon");
         Actions builder1 = new Actions(driver);
-        Action drawAction1 = builder1.moveToElement(addProcessIcon, 400, -100) //start points x axis and y axis.
+        builder1.moveToElement(addProcessIcon, 300, -100) //start points x axis and y axis.
                 .click()
                 .clickAndHold()
-                .moveByOffset(300, -400) // 2nd points (x1,y1)
+                .moveByOffset(300, -100) // 2nd points (x1,y1)
                 .release()
-                .build();
-        drawAction1.perform();
+                .build()
+                .perform();
         Thread.sleep(5000);
         test.log(Status.INFO, "User drag and drop process element");
         applyWait.waitForElementToBeClickable(processElement, 30).sendKeys(parentProcess, Keys.ENTER);
@@ -462,7 +480,7 @@ public class DesignerPage {
         applyWait.waitforElementToBeDisplayed(pool, 30).click();
         test.log(Status.INFO, "Click on pool");
         Actions builder12 = new Actions(driver);
-        Action drawAction12 = builder12.moveToElement(pool, 600, -100) //start points x axis and y axis.
+        Action drawAction12 = builder12.moveToElement(pool, 600, -200) //start points x axis and y axis.
                 .click()
                 .clickAndHold()
                 .moveByOffset(500, -400) // 2nd points (x1,y1)
@@ -494,12 +512,12 @@ public class DesignerPage {
         applyWait.waitforElementToBeDisplayed(cost, 30).sendKeys("10");
         test.log(Status.INFO, "Fill the cost for role");
         applyWait.waitforElementToBeDisplayed(submitRole, 30).click();
-        // applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(Keys.ENTER);
+        //   applyWait.waitforElementToBeDisplayed(addOrgName, 30).click();
         test.log(Status.INFO, "Click on submit role button");
-        Thread.sleep(2000);
+        Thread.sleep(8000);
         Actions actions21 = new Actions(driver);
         actions21.doubleClick(addRoleName.get(0)).perform();
-        Thread.sleep(5000);
+        //  Thread.sleep(8000);
         String roleName1 = "Role" + produce.generateName();
         applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(roleName1);
         test.log(Status.INFO, "enter  Role Name ");
@@ -511,20 +529,21 @@ public class DesignerPage {
         test.log(Status.INFO, "Fill the cost for role");
         applyWait.waitforElementToBeDisplayed(submitRole, 30).click();
         test.log(Status.INFO, "Click on submit role button");
+        Thread.sleep(3000);
         applyWait.waitforElementToBeDisplayed(startEvn, 30).click();
         test.log(Status.INFO, "Click on start event");
         Actions builder22 = new Actions(driver);
-        Action drawAction22 = builder22.moveToElement(startEvn, 100, -100) //start points x axis and y axis.
+        Action drawAction22 = builder22.moveToElement(startEvn, 100, 100) //start points x axis and y axis.
                 .click()
                 .clickAndHold()
-                .moveByOffset(200, -150) // 2nd points (x1,y1)
+                .moveByOffset(150, 130) // 2nd points (x1,y1)
                 .release()
                 .build();
         drawAction22.perform();
-        Thread.sleep(5000);
-        String startEvnName = produce.generateName();
-        applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(startEvnName, Keys.ENTER);
-        test.log(Status.INFO, "enter start event name ");
+       /* applyWait.waitforElementToBeDisplayed()
+        Actions start = new Actions(driver);
+        start.doubleClick(startEvn).perform();*/
+
        /* applyWait.waitforElementToBeDisplayed(createTask, 30).click();
         test.log(Status.INFO, "Click on create task");
         Actions builder22 = new Actions(driver);
@@ -539,48 +558,105 @@ public class DesignerPage {
         String taskName1 = produce.generateName();
         applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(taskName1, Keys.ENTER);
         test.log(Status.INFO, "enter create task name ");*/
-        applyWait.waitforElementToBeDisplayed(appendTask, 30).click();
+        applyWait.waitforElementToBeDisplayed(createTask, 30).click();
         test.log(Status.INFO, "Click on append task");
         Actions appendT = new Actions(driver);
-        Action drawTask = appendT.moveToElement(appendTask, 550, 100) //start points x axis and y axis.
+        appendT.moveToElement(createTask, 300, -100) //start points x axis and y axis.
                 .click()
                 .clickAndHold()
-                .moveByOffset(550, 200) // 2nd points (x1,y1)
+                .moveByOffset(400, -300) // 2nd points (x1,y1)
                 .release()
-                .build();
-        drawTask.perform();
+                .build()
+                .perform();
         Thread.sleep(5000);
         String taskName2 = produce.generateName();
         applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(taskName2);
+        applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(Keys.ENTER);
         test.log(Status.INFO, "enter append task name ");
-        applyWait.waitforElementToBeDisplayed(appendTask, 30).click();
-        test.log(Status.INFO, "Click on append task");
-        Actions appendT2 = new Actions(driver);
-        Action drawTask2 = appendT2.moveToElement(appendTask, 900, -100) //start points x axis and y axis.
+
+       /* applyWait.waitforElementToBeDisplayed(appendTask, 30).click();
+        test.log(Status.INFO, "Click on append task")*/
+        ;
+        String startEvnName = produce.generateName();
+        Actions start = new Actions(driver);
+        start.doubleClick(doneStartEvn).perform();
+        applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(startEvnName);
+        applyWait.waitforElementToBeDisplayed(doneStartEvn, 30).click();
+        test.log(Status.INFO, "enter start event name ");
+        applyWait.waitforElementToBeDisplayed(arrow, 30).click();
+        test.log(Status.INFO, "User click on arrow");
+        applyWait.waitforElementToBeDisplayed(doneTask1, 30).click();
+        test.log(Status.INFO, "User draw the arrow");
+        /*Actions appendT2 = new Actions(driver);
+        Action drawTask2 = appendT2.moveToElement(arrow,600, -400) //start points x axis and y axis.
                 .click()
                 .clickAndHold()
-                .moveByOffset(800, -400) // 2nd points (x1,y1)
+                .moveToElement(doneTask1) // 2nd points (x1,y1)
                 .release()
                 .build();
-        drawTask2.perform();
-        Thread.sleep(5000);
-        String taskName3 = produce.generateName();
-        applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(taskName3);
-        test.log(Status.INFO, "enter append task name ");
+        drawTask2.perform();*/
+        Thread.sleep(3000);
         applyWait.waitforElementToBeDisplayed(createSystem, 30).click();
         test.log(Status.INFO, "Click on create System");
-        Actions sys = new Actions(driver);
-        Action drawSys = sys.moveToElement(createSystem, 500, 170) //start points x axis and y axis.
+        Actions system = new Actions(driver);
+        system.moveToElement(createSystem, 200, -200) //start points x axis and y axis.
                 .click()
                 .clickAndHold()
-                .moveByOffset(500, 230) // 2nd points (x1,y1)
+                .moveByOffset(150, -300) // 2nd points (x1,y1)
                 .release()
-                .build();
-        drawSys.perform();
+                .build()
+                .perform();
         Thread.sleep(5000);
-        String system = produce.generateName();
-        applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(system, Keys.ENTER);
+        applyWait.waitforElementToBeDisplayed(doneSystem, 30).click();
+        Thread.sleep(3000);
+        Actions syst = new Actions(driver);
+        syst.doubleClick(doneSystem).perform();
+        String system1 = produce.generateName();
+        applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(system1);
         test.log(Status.INFO, "enter System Name ");
+        applyWait.waitforElementToBeDisplayed(addOrgUnitBtn, 30).click();
+        test.log(Status.INFO, "Click on add System ");
+        String sysURL = "-";
+        Thread.sleep(3000);
+        applyWait.waitforElementToBeDisplayed(systemURL, 30).sendKeys(sysURL);
+        test.log(Status.INFO, "User enter System url ");
+        applyWait.waitforElementToBeDisplayed(submitRole, 30).click();
+        //   applyWait.waitforElementToBeDisplayed(addOrgName, 30).click();
+        test.log(Status.INFO, "Click on submit System button");
+        applyWait.waitforElementToBeDisplayed(doneTask1, 30).click();
+        applyWait.waitforElementToBeDisplayed(arrow, 30).click();
+        test.log(Status.INFO, "User click on arrow");
+        applyWait.waitforElementToBeDisplayed(doneSystem, 30).click();
+        test.log(Status.INFO, "User draw the arrow");
+        Thread.sleep(3000);
+        applyWait.waitforElementToBeDisplayed(document, 30).click();
+        test.log(Status.INFO, "Click on create document");
+        Actions document1 = new Actions(driver);
+        document1.moveToElement(document, 200, -200) //start points x axis and y axis.
+                .click()
+                .clickAndHold()
+                .moveByOffset(150, -300) // 2nd points (x1,y1)
+                .release()
+                .build()
+                .perform();
+        Thread.sleep(5000);
+        applyWait.waitforElementToBeDisplayed(doneSystem, 30).click();
+        Actions docu = new Actions(driver);
+        docu.doubleClick(doneDocument).perform();
+        String doc1 = produce.generateName();
+        applyWait.waitforElementToBeDisplayed(processElement, 30).sendKeys(doc1);
+        test.log(Status.INFO, "enter document Name ");
+        applyWait.waitforElementToBeDisplayed(addOrgUnitBtn, 30).click();
+        test.log(Status.INFO, "Click on add document ");
+        String docURL = "-";
+        Thread.sleep(3000);
+        applyWait.waitforElementToBeDisplayed(systemURL, 30).sendKeys(docURL);
+        test.log(Status.INFO, "User enter System url ");
+        applyWait.waitforElementToBeDisplayed(submitRole, 30).click();
+        //   applyWait.waitforElementToBeDisplayed(addOrgName, 30).click();
+        test.log(Status.INFO, "Click on submit System button");
+
+
     }
 
     public void clickOnCheckinBtn() throws InterruptedException {

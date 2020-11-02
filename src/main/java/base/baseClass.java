@@ -242,8 +242,8 @@ public class baseClass {
             defineProperties defineBrowser = new defineProperties(browser);
             ChromeOptions options = new ChromeOptions();
             options.addArguments("disable-infobars");
-           // options.addArguments("--start-maximized");
-            options.addArguments("window-size=1024,768");
+            options.addArguments("--start-maximized");
+            options.addArguments("window-size=1280,1024");
             String path = System.getProperty("user.dir");
             DownloadFilepath = path + "\\Test_Data\\Download";
             HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
@@ -251,7 +251,7 @@ public class baseClass {
             chromePrefs.put("download.default_directory", DownloadFilepath);
             options.setExperimentalOption("prefs", chromePrefs);
             driver = new ChromeDriver(options);
-            driver.manage().window().maximize();
+            //  driver.manage().window().maximize();
         } else if (browser.equalsIgnoreCase("firefox")) {
             defineProperties defineBrowser = new defineProperties(browser);
             driver = new FirefoxDriver();

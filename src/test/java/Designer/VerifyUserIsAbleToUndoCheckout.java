@@ -21,7 +21,7 @@ public class VerifyUserIsAbleToUndoCheckout extends baseClass {
         driver.get(read.getCellData(defineConstant.AdminURL_Row, defineConstant.AdminURL_Col, "Admin"));
 
         login.loginWithValid_User();
-       // designer.drawProcessMap();
-        designer.undoCheckout();
+        designer.drawProcessMap();
+        //designer.undoCheckout();
     }
 }

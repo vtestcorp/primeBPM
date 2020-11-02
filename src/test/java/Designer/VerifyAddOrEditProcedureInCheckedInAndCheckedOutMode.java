@@ -12,7 +12,7 @@ import pageFactory_MyProcess.MyProcessesPage;
 public class VerifyAddOrEditProcedureInCheckedInAndCheckedOutMode extends baseClass {
 
     @Test(alwaysRun = true)
-    public void verifyAddOrEditProcedureInCheckedInAndCheckedOutMode() throws Exception{
+    public void verifyAddOrEditProcedureInCheckedInAndCheckedOutMode() throws Exception {
         test = extent.createTest("Verify with valid username, password",
                 "The user should be logged in successfully ");
 

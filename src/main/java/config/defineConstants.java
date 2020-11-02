@@ -48,21 +48,23 @@ public class defineConstants {
     public static final String childProcess2 = "Test3";
     public static final String importedRole = "roletest113";
     public static final String frameworkNameAuto = "AUTOMATIONFRAMEWORK";
-//    public final String frameworkName="HS CORPORATE 12" + produce.generateRandomString();
+    //    public final String frameworkName="HS CORPORATE 12" + produce.generateRandomString();
     public static final String searchString = "TESTCKZZSBUAOT";
     public static final String searchStringForDrawingDesignMap = "TESTHUIXMIJEIA";
-   /* public final String parentProcess = "Test1" + produce.generateRandomString();
-    public final String childProcess1 = "Test2" + produce.generateRandomString();
-    public final String childProcess2 = "Test3" + produce.generateRandomString();
-    */
+    /* public final String parentProcess = "Test1" + produce.generateRandomString();
+     public final String childProcess1 = "Test2" + produce.generateRandomString();
+     public final String childProcess2 = "Test3" + produce.generateRandomString();
+     */
     public static final String frameworkSavedSuccessMsg = "Success\n" + "Framework updated successfully.";
     public static final String librarySavedSuccessMsg = "Success\n" + "Process library updated successfully.";
     public static final String processMapSavedSuccessMsg = "Success\n" + "Process Map saved successfully.</div>";
 
     public static final String checkInSuccessMsg = "Success\n" + "Check in successful.";
     public static final String checkOutsuccessMsg = "Success\n" + "Check out successful.";
-    public static final String savedProcedureMsg = "Success\n" + "Procedure saved successfully";
-    public static final String searchStringForInProgressProcess = "t1";
+    public static final String savedProcedureMsg = "Procedure saved successfully";
+    public static final String searchStringForInProgressProcess = "process";
+    public static final String savedTaskAttributeMsg = "Task attributes updated succesfully";
+
 
     public static final String loginErrormsg = "Sign in failed";
 }
